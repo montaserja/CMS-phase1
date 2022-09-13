@@ -1,0 +1,7 @@
+package constants;
+
+public enum DBConstants {
+	Customer, Company, Coupon, ID, FIRST_NAME, LAST_NAME, NAME, EMAIL, PASSWORD, CUSTOMER_ID, COUPON_ID, COMPANY_ID,
+	CATEGORY_ID, TITLE, DESCRIPTION, START_DATE, END_DATE, AMOUNT, PRICE, IMAGE
+
+}
