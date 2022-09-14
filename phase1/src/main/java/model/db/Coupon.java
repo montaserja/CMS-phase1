@@ -1,21 +1,19 @@
 package model.db;
 
-import java.util.Date;
-
 public class Coupon {
 	private int id;
 	private int companyID;
 	private int categoryID;
 	private String title;
 	private String description;
-	private Date startDate;
-	private Date endDate;
+	private String startDate;
+	private String endDate;
 	private int amount;
 	private double price;
 	private String image;
 
-	public Coupon(int id, int companyID, int categoryID, String title, String description, Date startDate, Date endDate,
-			int amount, double price, String image) {
+	public Coupon(int id, int companyID, int categoryID, String title, String description, String startDate,
+			String endDate, int amount, double price, String image) {
 		super();
 		this.id = id;
 		this.companyID = companyID;
@@ -70,19 +68,19 @@ public class Coupon {
 		this.description = description;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 

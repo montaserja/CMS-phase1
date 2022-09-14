@@ -1,15 +1,17 @@
 package sqlQuery;
 
 import constants.DBConstants;
-
+import constants.sqlQueries;
 public abstract class GenQuery {
-	
+
 	public String selectAllData(DBConstants nameTable) {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECt * FROM ");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
 		sql.append(nameTable);
-
+		sql.append(";");
 		return sql.toString();
 	}
 
@@ -17,11 +19,14 @@ public abstract class GenQuery {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECt * FROM ");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
 		sql.append(nameTable);
 		sql.append(" WHERE ");
 		sql.append(nameCol);
 		sql.append("=");
 		sql.append(valCol);
+		sql.append(";");
 		return sql.toString();
 
 	}
@@ -30,11 +35,14 @@ public abstract class GenQuery {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("DELETE FROM ");
-		sql.append(DBConstants.Customer);
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(nameTable);
 		sql.append(" WHERE ");
 		sql.append(DBConstants.ID);
 		sql.append("=");
 		sql.append(valCol);
+		sql.append(";");
 
 		return sql.toString();
 	}
