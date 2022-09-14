@@ -13,7 +13,7 @@ public interface CustomersDAO {
 
 	public void deleteCustomer(int customerID);
 
-	public ArrayList<Customer> getAllCompanies();
+	public ArrayList<Customer> getAllCustomers();
 
 	public Customer getOneCustomer(int customerID);
 }

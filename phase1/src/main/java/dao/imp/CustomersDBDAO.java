@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import app.ConnectionPool;
 import app.DB;
 import constants.DBConstants;
+import constants.MsgLog;
+import constants.OperationCRUD;
 import dao.infc.CustomersDAO;
 import mapper.imp.MyMapperCustomerImp;
 import model.db.Customer;
@@ -29,18 +31,17 @@ public class CustomersDBDAO implements CustomersDAO {
 		String sql = ((CustomerQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS)).addCustomer(customer);
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
-		DB.excute(sql, con, "Succssfully, inserted a new customer into CUSTOMER table",
-				"Failed, we can't insert a new customer form CUSTOMER table", true);
+		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Customer, OperationCRUD.Inserted),
+				MsgLog.msgError(DBConstants.Customer, OperationCRUD.Inserted), true);
 
 	}
 
 	public void updateCustomer(Customer customer) {
-
 		String sql = ((CustomerQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS)).updateCustomer(customer);
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
-		DB.excute(sql, con, "Succssfully, updated a customer into CUSTOMER table",
-				"Failed, we can't update a new customer form CUSTOMER table", true);
+		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Customer, OperationCRUD.Updated),
+				MsgLog.msgError(DBConstants.Customer, OperationCRUD.Updated), true);
 	}
 
 	public void deleteCustomer(int customerID) {
@@ -48,11 +49,11 @@ public class CustomersDBDAO implements CustomersDAO {
 				.deleteRow(DBConstants.CUSTOMERS, customerID);
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
-		DB.excute(sql, con, "Succssfully, deleted a customer from CUSTOMER table",
-				"Failed, we can't delete a customer form CUSTOMER table", true);
+		DB.excute(sql, con,MsgLog.msgSuccss(DBConstants.Customer, OperationCRUD.Deleted),
+				MsgLog.msgError(DBConstants.Customer, OperationCRUD.Deleted), true);
 	}
 
-	public ArrayList<Customer> getAllCompanies() {
+	public ArrayList<Customer> getAllCustomers() {
 
 		String sql = ((CustomerQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS))
 				.selectAllData(DBConstants.CUSTOMERS);
@@ -60,12 +61,11 @@ public class CustomersDBDAO implements CustomersDAO {
 
 		Connection con = this.connectionPool.getConnection();
 
-		ResultSet rs = DB.excute(sql, con, "Succssfully, deleted a customer from CUSTOMER table",
-				"Failed, we can't get all customers form CUSTOMER table", false);
+		ResultSet rs = DB.excute(sql, con,MsgLog.msgSuccss(DBConstants.CUSTOMERS, OperationCRUD.Fteched),
+				MsgLog.msgError(DBConstants.CUSTOMERS, OperationCRUD.Fteched), false);
 
 		ArrayList<Customer> customers = MyMapperCustomerImp.getInstance().convertResultSetToArrayListOfCustomer(rs);
 		System.out.println(customers);
-		System.out.println("Succssfully, get all customers from CUSTOMER table");
 		return customers;
 	}
 
@@ -76,8 +76,8 @@ public class CustomersDBDAO implements CustomersDAO {
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 
-		ResultSet rs = DB.excute(sql, con, "Succssfully, get a customer from CUSTOMER table",
-				"Failed, we can't get a customer form CUSTOMER table", false);
+		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Customer, OperationCRUD.Fteched),
+				MsgLog.msgError(DBConstants.Customer, OperationCRUD.Fteched), false);
 
 		Customer customer = MyMapperCustomerImp.getInstance().convertResultSetToCustomer(rs);
 		System.out.println(customer);

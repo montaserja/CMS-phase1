@@ -90,7 +90,7 @@ public class Runner {
 //		customerDAO.updateCustomer(c2);
 //		System.out.println();
 //	
-//		customerDAO.getAllCompanies();
+//		customerDAO.getAllCustomers();
 //		System.out.println();
 
 //		customerDAO.getOneCustomer(2);

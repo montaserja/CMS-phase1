@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import app.ConnectionPool;
 import app.DB;
 import constants.DBConstants;
+import constants.MsgLog;
+import constants.OperationCRUD;
 import dao.infc.CompaniesDAO;
 import mapper.imp.MyMapperCompanyImp;
 import model.db.Company;
@@ -29,7 +31,8 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		System.out.println(sql);
 
 		Connection con = this.connectionPool.getConnection();
-		DB.excute(sql, con, "Succssfully, a new company is inserted", "Failed, a new company is not inserted", true);
+		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Company, OperationCRUD.Inserted),
+				MsgLog.msgError(DBConstants.Company, OperationCRUD.Inserted), true);
 
 	}
 
@@ -37,7 +40,8 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		String sql = ((CompanyQuery) QueryFactory.createInstance(DBConstants.COMPANIES)).updateCompany(company);
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
-		DB.excute(sql, con, "Succssfully, the copmany is updated", "Failed, the copmany is not updated", true);
+		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Company, OperationCRUD.Updated),
+				MsgLog.msgError(DBConstants.Company, OperationCRUD.Updated), true);
 
 	}
 
@@ -47,7 +51,8 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		System.out.println(sql);
 
 		Connection con = this.connectionPool.getConnection();
-		DB.excute(sql, con, "Succssfully, the company is deleted", "Failed, the company is not deleted", true);
+		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Company, OperationCRUD.Deleted),
+				MsgLog.msgError(DBConstants.Company, OperationCRUD.Deleted), true);
 
 	}
 
@@ -58,12 +63,11 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		System.out.println(sql);
 
 		Connection con = this.connectionPool.getConnection();
-		ResultSet rs = DB.excute(sql, con, "Succssfully, get all customers from CUSTOMER table",
-				"Failed, we can't get all customers form CUSTOMER table", false);
+		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.COMPANIES, OperationCRUD.Fteched),
+				MsgLog.msgError(DBConstants.COMPANIES, OperationCRUD.Fteched), false);
 
 		ArrayList<Company> companies = MyMapperCompanyImp.getInstance().convertResultSetToArrayListOfCompany(rs);
 		System.out.println(companies);
-		System.out.println("Succssfully, get all customers from CUSTOMER table");
 		return companies;
 
 	}
@@ -75,12 +79,11 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		Connection con = null;
 
 		con = this.connectionPool.getConnection();
-		ResultSet rs = DB.excute(sql, con, "Succssfully, get all customers from CUSTOMER table",
-				"Failed, we can't get all customers form CUSTOMER table", false);
+		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Company, OperationCRUD.Fteched),
+				MsgLog.msgError(DBConstants.Company, OperationCRUD.Fteched), false);
 
 		Company company = MyMapperCompanyImp.getInstance().convertResultSetToCompany(rs);
 		System.out.println(company);
-		System.out.println("Succssfully, get a customer from CUSTOMER table");
 		return company;
 
 	}

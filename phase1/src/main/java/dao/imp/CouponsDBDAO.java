@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import app.ConnectionPool;
 import app.DB;
 import constants.DBConstants;
+import constants.MsgLog;
+import constants.OperationCRUD;
 import dao.infc.CouponsDAO;
 import mapper.imp.MyMapperCouponImp;
 import model.db.Coupon;
@@ -26,7 +28,8 @@ public class CouponsDBDAO implements CouponsDAO {
 		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).addCoupon(coupon);
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
-		DB.excute(sql, con, "Succssfully, new coupon is inserted", "Failed, new coupon is not inserted", true);
+		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Inserted),
+				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Inserted), true);
 
 	}
 
@@ -34,7 +37,8 @@ public class CouponsDBDAO implements CouponsDAO {
 		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).updateCoupon(coupon);
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
-		DB.excute(sql, con, "Succssfully, coupon is updated", "Failed, coupon is not updated", true);
+		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Updated),
+				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Updated), true);
 	}
 
 	public void deleteCoupon(int couponID) {
@@ -42,7 +46,8 @@ public class CouponsDBDAO implements CouponsDAO {
 				couponID);
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
-		DB.excute(sql, con, "Succssfully, coupon is deleted", "Failed, coupon is not deleted", true);
+		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Deleted),
+				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Deleted), true);
 
 	}
 
@@ -52,7 +57,8 @@ public class CouponsDBDAO implements CouponsDAO {
 				.selectAllData(DBConstants.COUPONS);
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
-		ResultSet rs = DB.excute(sql, con, "Succssfully, fetch all coupons", "Failed, can't fetch coupons", false);
+		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.COUPONS, OperationCRUD.Fteched),
+				MsgLog.msgError(DBConstants.COUPONS, OperationCRUD.Fteched), false);
 
 		ArrayList<Coupon> coupons = MyMapperCouponImp.getInstance().convertResultSetToArrayListOfCoupon(rs);
 		System.out.println(coupons);
@@ -66,8 +72,8 @@ public class CouponsDBDAO implements CouponsDAO {
 				DBConstants.ID, couponID);
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
-		ResultSet rs = DB.excute(sql, con, "Succssfully, get a coupon from CUSTOMER table",
-				"Failed, we can't get a coupon form CUSTOMER table", false);
+		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Fteched),
+				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Fteched), false);
 
 		Coupon coupon = MyMapperCouponImp.getInstance().convertResultSetToCoupon(rs);
 		System.out.println(coupon);
@@ -83,8 +89,8 @@ public class CouponsDBDAO implements CouponsDAO {
 				.addCustomerVsCoupon(customerVsCoupon);
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
-		DB.excute(sql, con, "Succssfully, link a coupon with customer into CUSTOMER_VS_COUPONS table",
-				"Failed, we can't link a coupon with customer form CUSTOMER_VS_COUPONS table", true);
+		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Purchase),
+				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Purchase), true);
 
 	}
 
@@ -93,8 +99,8 @@ public class CouponsDBDAO implements CouponsDAO {
 				.deleteCustomerVsCouponRow(new CustomerVsCoupon(1, customerID, couponID));
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
-		DB.excute(sql, con, "Succssfully, deleted into CUSTOMER_VS_COUPONS table",
-				"Failed, we can't delete form CUSTOMER_VS_COUPONS table", true);
+		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.DeletePurchase),
+				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.DeletePurchase), true);
 	}
 
 }
