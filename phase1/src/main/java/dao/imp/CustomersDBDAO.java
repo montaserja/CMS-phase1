@@ -23,11 +23,23 @@ public class CustomersDBDAO implements CustomersDAO {
 	}
 
 	public Boolean isCustomerExists(String email, String password) {
-//		String sql =  CustomerQuery.getInstance().selectOneRow(DBConstants.Customer, DBConstants.ID, 0)
-		return null;
+		String sql = ((CustomerQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS)).selectOneRowTwoConds(DBConstants.CUSTOMERS , DBConstants.EMAIL
+				, DBConstants.PASSWORD,email, password);
+		
+		Connection con = this.connectionPool.getConnection();
+		/*ResultSet rs = DB.excute(sql, con,  MsgLog.msgSuccss(DBConstants.Customer, OperationCRUD.Selected),
+				MsgLog.msgError(DBConstants.Customer, OperationCRUD.Selected), false);*/
+		ResultSet rs = DB.excute(sql, con, "","", false);
+		if(rs != null)
+			return true;
+		return false;
 	}
 
 	public void addCustomer(Customer customer) {
+		if(isCustomerExists(customer.getEmail(),customer.getPassword())) {
+			System.out.println("customer already existed!!");
+			return;
+		}
 		String sql = ((CustomerQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS)).addCustomer(customer);
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();

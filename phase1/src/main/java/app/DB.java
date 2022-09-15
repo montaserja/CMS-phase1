@@ -53,7 +53,7 @@ public class DB {
 			} else {
 				rs = stmt.executeQuery(sql);
 				if (rs.next() == false) {
-					System.out.print("Error, there is no data");
+					System.out.println("there is no data for " + sql);
 					return null;
 				}
 			}
@@ -74,6 +74,7 @@ public class DB {
 
 		excute(sqlQueries.CREATE_CATEGORIES, con, "Succssfully, CATEGORIES table is created",
 				"Failed, can't create the CATEGORIES table, table is already exists",true);
+
 
 		excute(sqlQueries.CATEGORY_1, con, "Succssfully, CATEGORY1 Filed is inserted",
 				"Failed, can't insert the CATEGORY1 table",true);

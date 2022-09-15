@@ -23,10 +23,23 @@ public class CompaniesDBDAO implements CompaniesDAO {
 	}
 
 	public Boolean isCompanyExists(String email, String password) {
-		return null;
+		String sql = ((CompanyQuery) QueryFactory.createInstance(DBConstants.COMPANIES)).selectOneRowTwoConds(DBConstants.COMPANIES , DBConstants.EMAIL
+				, DBConstants.PASSWORD,email, password);
+		
+		Connection con = this.connectionPool.getConnection();
+		/*ResultSet rs = DB.excute(sql, con,  MsgLog.msgSuccss(DBConstants.Company, OperationCRUD.Selected),
+				MsgLog.msgError(DBConstants.Company, OperationCRUD.Selected), false);*/
+		ResultSet rs = DB.excute(sql, con,"","", false);
+		if(rs != null)
+			return true;
+		return false;
 	}
 
 	public void addCompany(Company company) {
+		if(isCompanyExists(company.getEmail(),company.getPassword())) {
+			System.out.println("company already existed!!");
+			return;
+		}
 		String sql = ((CompanyQuery) QueryFactory.createInstance(DBConstants.COMPANIES)).addCompany(company);
 		System.out.println(sql);
 
