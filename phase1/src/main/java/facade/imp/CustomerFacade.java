@@ -6,7 +6,7 @@ import model.db.Category;
 import model.db.Coupon;
 import model.db.Customer;
 
-public class CustomerFacade extends ClientFacade implements facade.infc.ICustomerFacade {
+public class CustomerFacade extends ClientFacade {
 
 	private int customerID;
 	

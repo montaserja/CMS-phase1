@@ -8,7 +8,9 @@ import dao.imp.CustomersDBDAO;
 import dao.infc.CompaniesDAO;
 import dao.infc.CouponsDAO;
 import dao.infc.CustomersDAO;
-
+import facade.imp.AdminFacade;
+import facade.imp.ClientFacade;
+import facade.infc.IAdminFacade;
 import dao.imp.CompaniesDBDAO;
 import dao.imp.CouponsDBDAO;
 import model.db.Company;
@@ -20,12 +22,20 @@ public class Runner {
 	public static void main(String[] args) {
 		DB.createDB();
 		System.out.println();
+		
+		
+		//checkCompanySQLs();
+		//chcekCustomerSQLs();
 
-		checkCompanySQLs();
-		chcekCustomerSQLs();
+		//checkCouponSQLs();
+		
+		checkAdminFacade();
 
-		checkCouponSQLs();
-
+	}
+	
+	private static void checkAdminFacade() {
+		AdminFacade admin = new AdminFacade();
+		System.out.println(admin.login("admin@admin.com" , "admin"));
 	}
 
 	private static void checkCouponSQLs() {
