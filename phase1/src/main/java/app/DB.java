@@ -71,20 +71,30 @@ public class DB {
 	}
 
 	public static void initCategoriesTable(Connection con) {
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sqlQueries.CREATE_CATEGORIES);
+			excute(sqlQueries.CATEGORY_1, con, "Succssfully, CATEGORY1 Filed is inserted",
+					"Failed, can't insert the CATEGORY1 table",true);
+			excute(sqlQueries.CATEGORY_2, con, "Succssfully, CATEGORY2 Filed is inserted",
+					"Failed, can't insert the CATEGORY2 table",true);
+			excute(sqlQueries.CATEGORY_3, con, "Succssfully, CATEGORY3 Filed is inserted",
+					"Failed, can't insert the CATEGORY3 table",true);
+			excute(sqlQueries.CATEGORY_4, con, "Succssfully, CATEGORY4 Filed is inserted",
+					"Failed, can't insert the CATEGORY4 table",true);
+			System.out.println("init categories table successfully...");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Failed, can't create the CATEGORIES table, table is already exists");
+		}finally {
+			if (con != null)
+				ConnectionPool.getInstance().restoreConnection(con);
+		}
+//		excute(sqlQueries.CREATE_CATEGORIES, con, "Succssfully, CATEGORIES table is created",
+//				"Failed, can't create the CATEGORIES table, table is already exists",true);
 
-		excute(sqlQueries.CREATE_CATEGORIES, con, "Succssfully, CATEGORIES table is created",
-				"Failed, can't create the CATEGORIES table, table is already exists",true);
 
 
-		excute(sqlQueries.CATEGORY_1, con, "Succssfully, CATEGORY1 Filed is inserted",
-				"Failed, can't insert the CATEGORY1 table",true);
-		excute(sqlQueries.CATEGORY_2, con, "Succssfully, CATEGORY2 Filed is inserted",
-				"Failed, can't insert the CATEGORY2 table",true);
-		excute(sqlQueries.CATEGORY_3, con, "Succssfully, CATEGORY3 Filed is inserted",
-				"Failed, can't insert the CATEGORY3 table",true);
-		excute(sqlQueries.CATEGORY_4, con, "Succssfully, CATEGORY4 Filed is inserted",
-				"Failed, can't insert the CATEGORY4 table",true);
-		System.out.println("init categories table successfully...");
 
 	}
 
