@@ -56,7 +56,7 @@ public class Runner {
 	private static void checkCompanySQLs() {
 		CompaniesDAO companiesDAO = new CompaniesDBDAO();
 		ArrayList<Coupon> coupons = null;
-		Company c = new Company(1, "Sabbah", "ahm@gmail.com", "123123", coupons);
+		Company c = new Company(1, "Sabbah", "ah@gmail.com", "123123", coupons);
 		
 		//System.out.println(companiesDAO.isCompanyExists("ahmad@gmail.com","13123"));
 		companiesDAO.addCompany(c);
