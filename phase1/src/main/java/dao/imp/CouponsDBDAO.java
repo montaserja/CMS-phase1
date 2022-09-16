@@ -65,6 +65,35 @@ public class CouponsDBDAO implements CouponsDAO {
 		return coupons;
 
 	}
+	
+	public ArrayList<Coupon> getAllCoupons(int CompanyID) {
+
+		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS))
+				.selectOneRow(DBConstants.COUPONS , DBConstants.COMPANY_ID , CompanyID);
+		System.out.println(sql);
+		Connection con = this.connectionPool.getConnection();
+		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.COUPONS, OperationCRUD.Fteched),
+				MsgLog.msgError(DBConstants.COUPONS, OperationCRUD.Fteched), false);
+
+		ArrayList<Coupon> coupons = MyMapperCouponImp.getInstance().convertResultSetToArrayListOfCoupon(rs);
+		//System.out.println(coupons);
+		return coupons;
+	}
+	
+	public ArrayList<Coupon> getAllCoupons(double maxPrice , int CompanyID) {
+
+		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS))
+				.selectSmallerThanVal(DBConstants.COUPONS , DBConstants.COMPANY_ID,CompanyID ,DBConstants.PRICE, maxPrice);
+		System.out.println(sql);
+		Connection con = this.connectionPool.getConnection();
+		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.COUPONS, OperationCRUD.Fteched),
+				MsgLog.msgError(DBConstants.COUPONS, OperationCRUD.Fteched), false);
+
+		ArrayList<Coupon> coupons = MyMapperCouponImp.getInstance().convertResultSetToArrayListOfCoupon(rs);
+		//System.out.println(coupons);
+		return coupons;
+	}
+	
 
 	public Coupon getOneCoupon(int couponID) {
 

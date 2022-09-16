@@ -29,40 +29,48 @@ public class CompanyFacade extends ClientFacade {
 
 	public void addCoupon(Coupon coupon) {
 		if(couponsDao.getCouponByNameAndComId(coupon.getTitle() , this.companyID ) != null) {
-			System.out.println("coupon title for your company is already exist!!");
+			System.out.println("can't add the coupon");
 			return;
 		}
 		couponsDao.addCoupon(coupon);
 	}
 
 	public void updateCoupon(Coupon coupon) {
-		// TODO Auto-generated method stub
+		if(coupon.getCompanyID() != this.companyID) {
+			System.out.println("can not update company ID");
+			return;
+		}
+		
+		Coupon c = couponsDao.getCouponByNameAndComId(coupon.getTitle(), this.companyID);
+		
+		if(c != null && coupon.getId() == c.getId()) {
+			couponsDao.updateCoupon(coupon);
+		}else {
+			System.out.println("name of coupon already exist!!");
+		}
 		
 	}
 
 	public void deleteCoupon(int couponID) {
-		// TODO Auto-generated method stub
-		
+		// need to delete purchase
+		couponsDao.deleteCoupon(couponID);
 	}
 
 	public ArrayList<Coupon> getCompanyCoupons() {
-		// TODO Auto-generated method stub
-		return null;
+		return couponsDao.getAllCoupons(this.companyID);
 	}
 
-	public ArrayList<Coupon> getCompanyCoupons(Category category) {
+	public ArrayList<Coupon> getCompanyCoupons(Category category) { //need get Catagory Id by name
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public ArrayList<Coupon> getCompanyCoupons(double maxPrice) {
-		// TODO Auto-generated method stub
-		return null;
+		return couponsDao.getAllCoupons(maxPrice,this.companyID);
 	}
 
 	public Company getCompanyDetails() {
-		// TODO Auto-generated method stub
-		return null;
+		return companiesDao.getOneCompany(this.companyID);
 	}
 
 }

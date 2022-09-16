@@ -21,5 +21,9 @@ public interface CouponsDAO {
 	public void deleteCouponPurchase(int customerID, int couponID);
 	
 	public Coupon getCouponByNameAndComId(String title, int CompanyID);
+	
+	public ArrayList<Coupon> getAllCoupons(int CompanyID);
+	
+	public ArrayList<Coupon> getAllCoupons(double maxPrice , int CompanyID);
 
 }

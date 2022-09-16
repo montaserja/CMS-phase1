@@ -26,6 +26,26 @@ public class Coupon {
 		this.price = price;
 		this.image = image;
 	}
+	
+	
+	
+
+	public Coupon(int companyID, int categoryID, String title, String description, String startDate, String endDate,
+			int amount, double price, String image) {
+		super();
+		this.companyID = companyID;
+		this.categoryID = categoryID;
+		this.title = title;
+		this.description = description;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.amount = amount;
+		this.price = price;
+		this.image = image;
+	}
+
+
+
 
 	// setter and getter methods
 	public int getId() {

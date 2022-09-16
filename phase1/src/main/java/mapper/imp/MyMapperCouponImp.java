@@ -25,6 +25,8 @@ public class MyMapperCouponImp implements mapper.infc.MyMapperCouponInfc {
 			} while (rs.next());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}catch(NullPointerException e) {
+			//do nothing
 		}
 		return Coupons;
 	}

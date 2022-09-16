@@ -17,6 +17,18 @@ public class Company {
 		this.password = password;
 		this.coupons = coupons;
 	}
+	
+	
+
+	public Company(String name, String email, String password, ArrayList<Coupon> coupons) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.coupons = coupons;
+	}
+
+
 
 	// setter and getter methods
 	public int getId() {

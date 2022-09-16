@@ -31,6 +31,25 @@ public abstract class GenQuery {
 
 	}
 	
+	public String selectSmallerThanVal(DBConstants nameTable, DBConstants nameCol1, int valCol1, DBConstants nameCol2, double valCol2) {
+
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM ");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(nameTable);
+		sql.append(" WHERE ");
+		sql.append(nameCol1);
+		sql.append("=");
+		sql.append(valCol1);
+		sql.append(" AND ");
+		sql.append(nameCol2);
+		sql.append("<=");
+		sql.append(valCol2);
+		return sql.toString();
+
+	}
+	
 	public String selectOneRowStrVal(DBConstants nameTable, DBConstants nameCol, String valCol) {
 
 		StringBuilder sql = new StringBuilder();

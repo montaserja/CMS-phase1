@@ -8,6 +8,15 @@ public class CustomerVsCoupon {
 	public String toString() {
 		return "CustomerVsCoupon [id=" + id + ", customerID=" + customerID + ", couponID=" + couponID + "]";
 	}
+	
+	
+	public CustomerVsCoupon(int customerID, int couponID) {
+		super();
+		this.customerID = customerID;
+		this.couponID = couponID;
+	}
+
+
 	public int getId() {
 		return id;
 	}
