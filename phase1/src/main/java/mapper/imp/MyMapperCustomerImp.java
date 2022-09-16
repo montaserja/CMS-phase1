@@ -39,6 +39,8 @@ public class MyMapperCustomerImp implements mapper.infc.MyMapperCustomerInfc {
 					rs.getString(DBConstants.PASSWORD.toString()), coupons);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}catch(NullPointerException e) {
+			//do nothing
 		}
 		return null;
 	}

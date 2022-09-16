@@ -10,7 +10,6 @@ import dao.infc.CouponsDAO;
 import dao.infc.CustomersDAO;
 import facade.imp.AdminFacade;
 import facade.imp.ClientFacade;
-import facade.infc.IAdminFacade;
 import dao.imp.CompaniesDBDAO;
 import dao.imp.CouponsDBDAO;
 import model.db.Company;
@@ -35,7 +34,23 @@ public class Runner {
 	
 	private static void checkAdminFacade() {
 		AdminFacade admin = new AdminFacade();
-		System.out.println(admin.login("admin@admin.com" , "admin"));
+		System.out.println("LogIn : " + admin.login("admin@admin.com" , "admin"));
+		System.out.println();
+		ArrayList<Coupon> coupons = null;
+		Company c = new Company(1, "Sabbah", "ah@gmail.com", "123123", coupons);
+		admin.addCompany(c);
+		System.out.println();
+		Company c1 = new Company(2, "Sab", "ah@gmail.com", "123123", coupons);
+		admin.addCompany(c1);	
+		System.out.println();
+		c.setEmail("asd@ds.com");
+		admin.updateCompany(c);
+		
+		//admin.deleteCompany(1);
+
+		Customer customer = new Customer(1, "Ahmad", "Sabbah", "ahmad@gmail.com", "123123", coupons);
+		admin.addCustomer(customer);
+		
 	}
 
 	private static void checkCouponSQLs() {
@@ -71,7 +86,7 @@ public class Runner {
 		//System.out.println(companiesDAO.isCompanyExists("ahmad@gmail.com","13123"));
 		companiesDAO.addCompany(c);
 //		
-//		companiesDAO.deleteCompany(1);
+//		comp)aniesDAO.deleteCompany(1);
 //		System.out.println();
 //		
 //		companiesDAO.updateCompany(c);

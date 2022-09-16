@@ -38,6 +38,8 @@ public class MyMapperCompanyImp implements mapper.infc.MyMapperCompanyInfc {
 					rs.getString(DBConstants.EMAIL.toString()), rs.getString(DBConstants.PASSWORD.toString()), coupons);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}catch(NullPointerException e) {
+			//System.out.println("result set is null");
 		}
 		return null;
 	}

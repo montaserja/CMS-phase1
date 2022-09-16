@@ -10,8 +10,11 @@ import constants.DBConstants;
 import constants.MsgLog;
 import constants.OperationCRUD;
 import dao.infc.CustomersDAO;
+import mapper.imp.MyMapperCompanyImp;
 import mapper.imp.MyMapperCustomerImp;
+import model.db.Company;
 import model.db.Customer;
+import sqlQuery.CompanyQuery;
 import sqlQuery.CustomerQuery;
 import sqlQuery.QueryFactory;
 
@@ -36,10 +39,7 @@ public class CustomersDBDAO implements CustomersDAO {
 	}
 
 	public void addCustomer(Customer customer) {
-		if(isCustomerExists(customer.getEmail(),customer.getPassword())) {
-			System.out.println("customer already existed!!");
-			return;
-		}
+
 		String sql = ((CustomerQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS)).addCustomer(customer);
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
@@ -96,5 +96,25 @@ public class CustomersDBDAO implements CustomersDAO {
 		return customer;
 
 	}
+	
+	public Customer getCustomerByEmail(String email) {
+		String sql= ((CustomerQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS))
+			.selectOneRowStrVal(DBConstants.CUSTOMERS, DBConstants.EMAIL,email );
+			
+		
+		System.out.println(sql);
+		
+		Connection con = null;
+
+		con = this.connectionPool.getConnection();
+		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Customer, OperationCRUD.Selected),
+				MsgLog.msgError(DBConstants.Customer, OperationCRUD.Selected), false);
+
+		Customer customer = MyMapperCustomerImp.getInstance().convertResultSetToCustomer(rs);
+		System.out.println(customer);
+		return customer;
+		
+	}
+	
 
 }

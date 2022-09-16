@@ -16,4 +16,6 @@ public interface CustomersDAO {
 	public ArrayList<Customer> getAllCustomers();
 
 	public Customer getOneCustomer(int customerID);
+	
+	public Customer getCustomerByEmail(String email);
 }

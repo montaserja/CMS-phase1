@@ -2,6 +2,7 @@ package dao.infc;
 
 import java.util.ArrayList;
 
+import constants.DBConstants;
 import model.db.Company;
 
 public interface CompaniesDAO {
@@ -17,4 +18,7 @@ public interface CompaniesDAO {
 	public ArrayList<Company> getAllCompanies();
 
 	public Company getOneCompany(int companyID);
+	
+	public Company getCompanyBystr(String name , DBConstants type);
+	
 }

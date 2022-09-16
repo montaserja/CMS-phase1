@@ -36,10 +36,6 @@ public class CompaniesDBDAO implements CompaniesDAO {
 	}
 
 	public void addCompany(Company company) {
-		if(isCompanyExists(company.getEmail(),company.getPassword())) {
-			System.out.println("company already existed!!");
-			return;
-		}
 		String sql = ((CompanyQuery) QueryFactory.createInstance(DBConstants.COMPANIES)).addCompany(company);
 		System.out.println(sql);
 
@@ -100,5 +96,32 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		return company;
 
 	}
+	
+	public Company getCompanyBystr(String str , DBConstants type) {
+		String sql= null;
+		
+		if(type == DBConstants.NAME)
+			sql = ((CompanyQuery) QueryFactory.createInstance(DBConstants.COMPANIES))
+				.selectOneRowStrVal(DBConstants.COMPANIES, DBConstants.NAME,str );
+		else if(type == DBConstants.EMAIL)
+			sql = ((CompanyQuery) QueryFactory.createInstance(DBConstants.COMPANIES))
+			.selectOneRowStrVal(DBConstants.COMPANIES, DBConstants.EMAIL,str );
+			
+		
+		System.out.println(sql);
+		
+		Connection con = null;
+
+		con = this.connectionPool.getConnection();
+		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Company, OperationCRUD.Selected),
+				MsgLog.msgError(DBConstants.Company, OperationCRUD.Selected), false);
+
+		Company company = MyMapperCompanyImp.getInstance().convertResultSetToCompany(rs);
+		//System.out.println(company);
+		return company;
+		
+	}
+	
+
 
 }
