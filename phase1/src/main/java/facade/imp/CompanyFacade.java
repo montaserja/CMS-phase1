@@ -2,6 +2,7 @@ package facade.imp;
 
 import java.util.ArrayList;
 
+import constants.DBConstants;
 import model.db.Category;
 import model.db.Company;
 import model.db.Coupon;
@@ -10,20 +11,28 @@ public class CompanyFacade extends ClientFacade {
 	
 	private int companyID;
 	
-	public CompanyFacade(int companyID) {
+	public CompanyFacade() {
 		super();
-		this.companyID = companyID;
+		//this.companyID = companyID;
 	}
 
 	@Override
 	public boolean login(String email, String password) {
-		// TODO Auto-generated method stub
+		if(companiesDao.isCompanyExists(email, password) == true) {
+			Company c = companiesDao.getCompanyBystr(email, DBConstants.EMAIL);
+			this.companyID = c.getId();
+			System.out.println("company " + this.companyID + " loged in");
+			return true;
+		}
 		return false;
 	}
 
 	public void addCoupon(Coupon coupon) {
-		// TODO Auto-generated method stub
-		
+		if(couponsDao.getCouponByNameAndComId(coupon.getTitle() , this.companyID ) != null) {
+			System.out.println("coupon title for your company is already exist!!");
+			return;
+		}
+		couponsDao.addCoupon(coupon);
 	}
 
 	public void updateCoupon(Coupon coupon) {

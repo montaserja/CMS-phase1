@@ -102,5 +102,20 @@ public class CouponsDBDAO implements CouponsDAO {
 		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.DeletePurchase),
 				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.DeletePurchase), true);
 	}
+	
+	public Coupon getCouponByNameAndComId(String title, int CompanyID) {
+		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).selectOneRowTwoCondsIntStr(DBConstants.COUPONS,
+				DBConstants.COMPANY_ID, CompanyID , DBConstants.TITLE , title);
+		System.out.println(sql);
+		
+		Connection con = this.connectionPool.getConnection();
+		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Selected),
+				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Selected), false);
+		
+		Coupon coupon = MyMapperCouponImp.getInstance().convertResultSetToCoupon(rs);
+		
+		return coupon;
+		
+	}
 
 }

@@ -66,6 +66,26 @@ public abstract class GenQuery {
 		return sql.toString();
 
 	}
+	
+	public String selectOneRowTwoCondsIntStr(DBConstants nameTable, DBConstants nameCol1, int valCol1,DBConstants nameCol2 , String valCol2) {
+
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM ");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(nameTable);
+		sql.append(" WHERE ");
+		sql.append(nameCol1);
+		sql.append("=");
+		sql.append(valCol1);
+		sql.append(" AND ");
+		sql.append(nameCol2);
+		sql.append("='");
+		sql.append(valCol2);
+		sql.append("';");
+		return sql.toString();
+
+	}
 
 	public String deleteRow(DBConstants nameTable, int valCol) {
 

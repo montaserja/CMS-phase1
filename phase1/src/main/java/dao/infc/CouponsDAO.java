@@ -19,5 +19,7 @@ public interface CouponsDAO {
 	public void addCouponPurchase(int CustomerID, int copounID);
 
 	public void deleteCouponPurchase(int customerID, int couponID);
+	
+	public Coupon getCouponByNameAndComId(String title, int CompanyID);
 
 }

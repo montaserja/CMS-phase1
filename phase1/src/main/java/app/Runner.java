@@ -10,6 +10,7 @@ import dao.infc.CouponsDAO;
 import dao.infc.CustomersDAO;
 import facade.imp.AdminFacade;
 import facade.imp.ClientFacade;
+import facade.imp.CompanyFacade;
 import dao.imp.CompaniesDBDAO;
 import dao.imp.CouponsDBDAO;
 import model.db.Company;
@@ -28,28 +29,51 @@ public class Runner {
 
 		//checkCouponSQLs();
 		
-		checkAdminFacade();
+		//checkAdminFacade();
+		
+		checkCompanyFacade();
 
 	}
 	
+	private static void checkCompanyFacade() {
+		ClientFacade company = new CompanyFacade();
+		((CompanyFacade)company).login("ah@gmail.com", "123123");
+		
+		CouponsDAO couponsDAO = new CouponsDBDAO();
+
+		LocalDateTime myDateObj = LocalDateTime.now();
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		String formattedDate = myDateObj.format(myFormatObj);
+
+		Coupon c = new Coupon(1, 2, 1, "aaa", "description", formattedDate.toString(), formattedDate.toString(), 10,
+				9.5, "sd");
+		
+		((CompanyFacade)company).addCoupon(c);
+		
+		
+		
+	}
+	
+	
 	private static void checkAdminFacade() {
-		AdminFacade admin = new AdminFacade();
+		ClientFacade admin = new AdminFacade();
 		System.out.println("LogIn : " + admin.login("admin@admin.com" , "admin"));
 		System.out.println();
 		ArrayList<Coupon> coupons = null;
 		Company c = new Company(1, "Sabbah", "ah@gmail.com", "123123", coupons);
-		admin.addCompany(c);
+		((AdminFacade)admin).addCompany(c);
 		System.out.println();
 		Company c1 = new Company(2, "Sab", "ah@gmail.com", "123123", coupons);
-		admin.addCompany(c1);	
+		((AdminFacade)admin).addCompany(c1);	
 		System.out.println();
 		c.setEmail("asd@ds.com");
-		admin.updateCompany(c);
+		((AdminFacade)admin).updateCompany(c);
 		
 		//admin.deleteCompany(1);
 
 		Customer customer = new Customer(1, "Ahmad", "Sabbah", "ahmad@gmail.com", "123123", coupons);
-		admin.addCustomer(customer);
+		((AdminFacade)admin).addCustomer(customer);
 		
 	}
 
