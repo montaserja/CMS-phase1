@@ -2,7 +2,9 @@ package facade.imp;
 
 import java.util.ArrayList;
 
+import constants.DBConstants;
 import model.db.Category;
+import model.db.Company;
 import model.db.Coupon;
 import model.db.Customer;
 
@@ -10,25 +12,29 @@ public class CustomerFacade extends ClientFacade {
 
 	private int customerID;
 	
-	public CustomerFacade(int customerID) {
+	public CustomerFacade() {
 		super();
-		this.customerID = customerID;
+		//this.customerID = customerID;
 	}
 
 	@Override
 	public boolean login(String email, String password) {
-		// TODO Auto-generated method stub
+		if(customersDao.isCustomerExists(email, password) == true) {
+			Customer c = customersDao.getCustomerByEmail(email);
+			this.customerID = c.getId();
+			System.out.println("customer " + this.customerID + " logged in");
+			return true;
+		}
 		return false;
 	}
 
 	public void purchaseCoupon(Coupon coupon) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	public ArrayList<Coupon> getCustomerCoupons() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return couponsDao.getAllCoupons(DBConstants.Customer, this.customerID);
 	}
 
 	public ArrayList<Coupon> getCustomerCoupons(Category catagory) {
@@ -42,8 +48,7 @@ public class CustomerFacade extends ClientFacade {
 	}
 
 	public Customer getCustomerDetails() {
-		// TODO Auto-generated method stub
-		return null;
+		return customersDao.getOneCustomer(this.customerID);
 	}
 
 }

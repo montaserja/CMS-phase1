@@ -66,19 +66,38 @@ public class CouponsDBDAO implements CouponsDAO {
 
 	}
 	
-	public ArrayList<Coupon> getAllCoupons(int CompanyID) {
+	public ArrayList<Coupon> getAllCoupons(DBConstants client ,int ID) {//insert table and company or customer id --> DBConstant.COUPONS when you need company
 
-		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS))
-				.selectOneRow(DBConstants.COUPONS , DBConstants.COMPANY_ID , CompanyID);
+		String sql = null;
+		
+		if(client.equals(DBConstants.Customer)) {
+			//SELECT * FROM cms.coupons INNER JOIN cms.customers_vs_coupons ON cms.coupons.ID = cms.customers_vs_coupons.COUPON_ID AND cms.customers_vs_coupons.CUSTOMER_ID =1;
+
+			sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS))
+				.selectOneRowInnerJoin(DBConstants.COUPONS ,DBConstants.CUSTOMERS_VS_COUPONS,DBConstants.ID
+						,DBConstants.COUPON_ID, DBConstants.CUSTOMER_ID , ID);
+
+		}
+		else if(client.equals(DBConstants.Company)) {
+			sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS))
+					.selectOneRow(DBConstants.COUPONS, DBConstants.COMPANY_ID , ID);
+		}
+		else {
+			System.out.println("client type not supported");
+			return null;
+		}
+		
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.COUPONS, OperationCRUD.Fteched),
 				MsgLog.msgError(DBConstants.COUPONS, OperationCRUD.Fteched), false);
-
+		
+		
 		ArrayList<Coupon> coupons = MyMapperCouponImp.getInstance().convertResultSetToArrayListOfCoupon(rs);
-		//System.out.println(coupons);
+
 		return coupons;
 	}
+	
 	
 	public ArrayList<Coupon> getAllCoupons(double maxPrice , int CompanyID) {
 

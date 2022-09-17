@@ -57,7 +57,7 @@ public class CompanyFacade extends ClientFacade {
 	}
 
 	public ArrayList<Coupon> getCompanyCoupons() {
-		return couponsDao.getAllCoupons(this.companyID);
+		return couponsDao.getAllCoupons(DBConstants.Company,this.companyID);
 	}
 
 	public ArrayList<Coupon> getCompanyCoupons(Category category) { //need get Catagory Id by name

@@ -20,7 +20,7 @@ public class ConnectionPool {
 
 		this.DB_URL = "jdbc:mysql://localhost/";
 		this.USER = "root";
-		this.PASS = "1234";
+		this.PASS = "rootroot";
 		connections = new HashSet<Connection>();
 
 		try {

@@ -92,7 +92,7 @@ public class CustomersDBDAO implements CustomersDAO {
 				MsgLog.msgError(DBConstants.Customer, OperationCRUD.Fteched), false);
 
 		Customer customer = MyMapperCustomerImp.getInstance().convertResultSetToCustomer(rs);
-		System.out.println(customer);
+		//System.out.println(customer);
 		return customer;
 
 	}
@@ -115,6 +115,8 @@ public class CustomersDBDAO implements CustomersDAO {
 		return customer;
 		
 	}
+	
+	
 	
 
 }

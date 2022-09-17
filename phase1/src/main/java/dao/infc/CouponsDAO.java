@@ -2,6 +2,7 @@ package dao.infc;
 
 import java.util.ArrayList;
 
+import constants.DBConstants;
 import model.db.Coupon;
 
 public interface CouponsDAO {
@@ -22,7 +23,8 @@ public interface CouponsDAO {
 	
 	public Coupon getCouponByNameAndComId(String title, int CompanyID);
 	
-	public ArrayList<Coupon> getAllCoupons(int CompanyID);
+	//public ArrayList<Coupon> getAllCoupons(int CompanyID);
+	public ArrayList<Coupon> getAllCoupons(DBConstants table ,int ID);
 	
 	public ArrayList<Coupon> getAllCoupons(double maxPrice , int CompanyID);
 

@@ -11,8 +11,10 @@ import dao.infc.CustomersDAO;
 import facade.imp.AdminFacade;
 import facade.imp.ClientFacade;
 import facade.imp.CompanyFacade;
+import facade.imp.CustomerFacade;
 import dao.imp.CompaniesDBDAO;
 import dao.imp.CouponsDBDAO;
+import model.db.Category;
 import model.db.Company;
 import model.db.Coupon;
 import model.db.Customer;
@@ -29,10 +31,27 @@ public class Runner {
 
 		//checkCouponSQLs();
 		
-		checkAdminFacade();
+		//checkAdminFacade();
 		
-		checkCompanyFacade();
+		//checkCompanyFacade();
+		
+		checkCustomerFacade();
+		
+		//System.out.println(Category.Electricity.ordinal());
 
+	}
+	
+	private static void checkCustomerFacade() {
+		System.out.println();
+		System.out.println("Customer Facade");
+		ClientFacade customer = new CustomerFacade();
+		((CustomerFacade)customer).login("ahmad@gmail.com", "123123");
+		
+		System.out.println(((CustomerFacade)customer).getCustomerDetails());
+		
+		System.out.println(((CustomerFacade)customer).getCustomerCoupons());
+		
+		
 	}
 	
 	private static void checkCompanyFacade() { 
@@ -57,8 +76,8 @@ public class Runner {
 		//c.setAmount(1);
 		//((CompanyFacade)company).updateCoupon(c);
 		
-		//System.out.println(((CompanyFacade)company).getCompanyCoupons());
-		System.out.println(((CompanyFacade)company).getCompanyCoupons(9.5));
+		System.out.println(((CompanyFacade)company).getCompanyCoupons());
+		//System.out.println(((CompanyFacade)company).getCompanyCoupons(9.5));
 		
 		
 	}

@@ -31,6 +31,43 @@ public abstract class GenQuery {
 
 	}
 	
+	public String selectOneRowInnerJoin(DBConstants nameTable1,DBConstants nameTable2,
+			DBConstants nameColT1 , DBConstants nameColT2, DBConstants nameCol3, int valCol) {
+
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM ");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(nameTable1);
+		sql.append(" INNER JOIN ");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(nameTable2);
+		sql.append(" ON ");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(nameTable1);
+		sql.append(".");
+		sql.append(nameColT1);
+		sql.append("=");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(nameTable2);
+		sql.append(".");
+		sql.append(nameColT2);
+		sql.append(" AND ");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(nameTable2);
+		sql.append(".");
+		sql.append(nameCol3);
+		sql.append("=");
+		sql.append(valCol);
+		sql.append(";");
+		return sql.toString();
+
+	}
+	
 	public String selectSmallerThanVal(DBConstants nameTable, DBConstants nameCol1, int valCol1, DBConstants nameCol2, double valCol2) {
 
 		StringBuilder sql = new StringBuilder();
