@@ -46,11 +46,22 @@ public class Runner {
 		System.out.println("Customer Facade");
 		ClientFacade customer = new CustomerFacade();
 		((CustomerFacade)customer).login("ahmad@gmail.com", "123123");
+		System.out.println();
+		//System.out.println(((CustomerFacade)customer).getCustomerDetails());
 		
-		System.out.println(((CustomerFacade)customer).getCustomerDetails());
+		//System.out.println(((CustomerFacade)customer).getCustomerCoupons());
 		
-		System.out.println(((CustomerFacade)customer).getCustomerCoupons());
+		LocalDateTime myDateObj = LocalDateTime.now();
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		String formattedDate = myDateObj.format(myFormatObj);
+		Coupon c = new Coupon(4, 2, 1, "vs", "cc", "2022-09-17","2022-09-20",32,
+				9.5, "sd");
 		
+		//((CustomerFacade)customer).purchaseCoupon(c);
+		
+		//System.out.println(((CustomerFacade)customer).getCustomerCoupons(10));
+		System.out.println(((CustomerFacade)customer).getCustomerCoupons(Category.Food));
 		
 	}
 	

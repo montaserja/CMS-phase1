@@ -38,6 +38,25 @@ public class CustomerVsCouponQuery extends GenQuery {
 		return sql.toString();
 
 	}
+	
+	public String checkCustomerVsCoupon(CustomerVsCoupon CustomerVsCoupon) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM ");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(DBConstants.CUSTOMERS_VS_COUPONS);
+		sql.append(" WHERE ");
+		sql.append(DBConstants.CUSTOMER_ID);
+		sql.append(" = ");
+		sql.append(CustomerVsCoupon.getCustomerID());
+		sql.append(" AND ");
+		sql.append(DBConstants.COUPON_ID);
+		sql.append(" = ");
+		sql.append(CustomerVsCoupon.getCouponID());
+
+		return sql.toString();
+
+	}
 	public String deleteCustomerVsCouponRow(CustomerVsCoupon CustomerVsCoupon) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("DELETE FROM ");

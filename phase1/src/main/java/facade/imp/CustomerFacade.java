@@ -1,6 +1,9 @@
 package facade.imp;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import constants.DBConstants;
 import model.db.Category;
@@ -27,9 +30,32 @@ public class CustomerFacade extends ClientFacade {
 		}
 		return false;
 	}
-
+	
+	private boolean dateIsAfterThanToday(String date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date date1 = sdf.parse(date);
+			if(date1.compareTo(new Date()) < 0 ) {
+				return false;
+			}else
+				return true;
+		} catch (ParseException e) {
+			System.out.println(e.getMessage());
+		}
+		return true;
+	}
+	
 	public void purchaseCoupon(Coupon coupon) {
-		
+		if(couponsDao.canCouponPurchaseExist(this.customerID,coupon.getId())) {
+			if(coupon.getAmount() > 0 && !dateIsAfterThanToday(coupon.getStartDate()) && dateIsAfterThanToday(coupon.getEndDate())) {
+					couponsDao.addCouponPurchase(this.customerID, coupon.getId());
+					coupon.setAmount(coupon.getAmount()-1);
+					System.out.println("coupon amount " + coupon.getAmount());
+					couponsDao.updateCoupon(coupon);
+			}
+		}else {
+			System.out.println("Customer " +this.customerID+ " already have the coupon " + coupon.getId());
+		}
 	}
 
 	public ArrayList<Coupon> getCustomerCoupons() {
@@ -37,14 +63,28 @@ public class CustomerFacade extends ClientFacade {
 		return couponsDao.getAllCoupons(DBConstants.Customer, this.customerID);
 	}
 
-	public ArrayList<Coupon> getCustomerCoupons(Category catagory) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Coupon> getCustomerCoupons(Category category) {
+		ArrayList<Coupon> coupons =  getCustomerCoupons();
+		if(coupons == null)
+			return null;
+		ArrayList<Coupon> resultCoupons = new ArrayList<Coupon>() ;
+		for (Coupon coupon : coupons) {
+			if(coupon.getCategoryID() == category.ordinal() + 1)
+				resultCoupons.add(coupon);
+		}
+		return resultCoupons;
 	}
 
 	public ArrayList<Coupon> getCustomerCoupons(double maxPrice) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Coupon> coupons =  getCustomerCoupons();
+		if(coupons == null)
+			return null;
+		ArrayList<Coupon> resultCoupons = new ArrayList<Coupon>() ;
+		for (Coupon coupon : coupons) {
+			if(coupon.getPrice() < maxPrice)
+				resultCoupons.add(coupon);
+		}
+		return resultCoupons;
 	}
 
 	public Customer getCustomerDetails() {

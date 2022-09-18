@@ -60,9 +60,16 @@ public class CompanyFacade extends ClientFacade {
 		return couponsDao.getAllCoupons(DBConstants.Company,this.companyID);
 	}
 
-	public ArrayList<Coupon> getCompanyCoupons(Category category) { //need get Catagory Id by name
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Coupon> getCompanyCoupons(Category category) {
+		ArrayList<Coupon> coupons =  getCompanyCoupons();
+		if(coupons == null)
+			return null;
+		ArrayList<Coupon> resultCoupons = new ArrayList<Coupon>() ;
+		for (Coupon coupon : coupons) {
+			if(coupon.getCategoryID() == category.ordinal() + 1)
+				resultCoupons.add(coupon);
+		}
+		return resultCoupons;
 	}
 
 	public ArrayList<Coupon> getCompanyCoupons(double maxPrice) {
