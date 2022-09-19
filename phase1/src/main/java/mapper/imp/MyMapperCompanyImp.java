@@ -33,9 +33,8 @@ public class MyMapperCompanyImp implements mapper.infc.MyMapperCompanyInfc {
 	public Company convertResultSetToCompany(ResultSet rs) {
 
 		try {
-			ArrayList<Coupon> coupons = null;
 			return new Company(rs.getInt(DBConstants.ID.toString()), rs.getString(DBConstants.NAME.toString()),
-					rs.getString(DBConstants.EMAIL.toString()), rs.getString(DBConstants.PASSWORD.toString()), coupons);
+					rs.getString(DBConstants.EMAIL.toString()), rs.getString(DBConstants.PASSWORD.toString()));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}catch(NullPointerException e) {

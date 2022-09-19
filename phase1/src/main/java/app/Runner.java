@@ -12,6 +12,8 @@ import facade.imp.AdminFacade;
 import facade.imp.ClientFacade;
 import facade.imp.CompanyFacade;
 import facade.imp.CustomerFacade;
+import logInManagerD.ClientType;
+import logInManagerD.LoginManager;
 import dao.imp.CompaniesDBDAO;
 import dao.imp.CouponsDBDAO;
 import model.db.Company;
@@ -41,10 +43,24 @@ public class Runner {
 		
 		//checkCompanyFacade();
 		
-//		checkCustomerFacade();
+
+		//checkCustomerFacade();
+
 		
 		//System.out.println(Category.Electricity.ordinal());
+		
+		checkloginManager();
 
+	}
+	
+	private static void checkloginManager() {
+		LoginManager manager = LoginManager.getInstance();
+		
+		//ClientFacade client = manager.login("admin@admin.com", "admin", ClientType.Administrator);
+		//ClientFacade client = manager.login("ah@gmail.com", "123123", ClientType.Company);
+		ClientFacade client = manager.login("ahmad@gmail.com", "123123", ClientType.Customer);
+		//System.out.println(client);
+		
 	}
 	
 	private static void checkCustomerFacade() {
@@ -52,11 +68,22 @@ public class Runner {
 		System.out.println("Customer Facade");
 		ClientFacade customer = new CustomerFacade();
 		((CustomerFacade)customer).login("ahmad@gmail.com", "123123");
+		System.out.println();
+		//System.out.println(((CustomerFacade)customer).getCustomerDetails());
 		
-		System.out.println(((CustomerFacade)customer).getCustomerDetails());
+		//System.out.println(((CustomerFacade)customer).getCustomerCoupons());
 		
-		System.out.println(((CustomerFacade)customer).getCustomerCoupons());
+		LocalDateTime myDateObj = LocalDateTime.now();
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		String formattedDate = myDateObj.format(myFormatObj);
+		Coupon c = new Coupon(4, 2, 1, "vs", "cc", "2022-09-17","2022-09-20",32,
+				9.5, "sd");
 		
+		//((CustomerFacade)customer).purchaseCoupon(c);
+		
+		//System.out.println(((CustomerFacade)customer).getCustomerCoupons(10));
+		System.out.println(((CustomerFacade)customer).getCustomerCoupons(Category.Food));
 		
 	}
 	
@@ -94,19 +121,29 @@ public class Runner {
 		System.out.println("LogIn : " + admin.login("admin@admin.com" , "admin"));
 		System.out.println();
 		ArrayList<Coupon> coupons = null;
-		Company c = new Company(1,"Sabbah", "ah@gmail.com", "123123", coupons);
+		Company c = new Company(1,"Sabbah", "ahm@gmail.com", "123123", coupons);
 		((AdminFacade)admin).addCompany(c);
 		System.out.println();
-		Company c1 = new Company(2,"Sab", "ah@gmail.com", "123123", coupons);
+		Company c1 = new Company(2,"Montaser", "montaser@gmail.com", "123123", coupons);
 		((AdminFacade)admin).addCompany(c1);	
 		System.out.println();
-		c.setEmail("asd@ds.com");
-		((AdminFacade)admin).updateCompany(c);
+		//c.setEmail("asd@ds.com");
+		//((AdminFacade)admin).updateCompany(c);
 		
 		//admin.deleteCompany(1);
 
 		Customer customer = new Customer(1, "Ahmad", "Sabbah", "ahmad@gmail.com", "123123", coupons);
 		((AdminFacade)admin).addCustomer(customer);
+		
+		Customer customer1 = new Customer(2, "Montaser", "Jafrah", "mo@gmail.com", "123123", coupons);
+		((AdminFacade)admin).addCustomer(customer);
+		((AdminFacade)admin).addCustomer(customer1);
+		
+		System.out.println();
+		System.out.println();
+		((AdminFacade)admin).deleteCompany(1);
+		//((AdminFacade)admin).deleteCustomer(1);
+		
 		
 	}
 

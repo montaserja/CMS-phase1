@@ -27,6 +27,14 @@ public class Company {
 		this.password = password;
 		this.coupons = coupons;
 	}
+	
+	public Company(int id, String name, String email, String password) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.coupons = coupons;
+	}
 
 
 

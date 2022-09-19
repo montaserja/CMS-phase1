@@ -2,6 +2,7 @@ package dao.imp;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import app.ConnectionPool;
@@ -137,6 +138,27 @@ public class CouponsDBDAO implements CouponsDAO {
 		Connection con = this.connectionPool.getConnection();
 		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Purchase),
 				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Purchase), true);
+
+	}
+	
+	public boolean canCouponPurchaseExist(int CustomerID, int copounID) {
+		CustomerVsCoupon customerVsCoupon = new CustomerVsCoupon(1, CustomerID, copounID);
+
+		String sql = ((CustomerVsCouponQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS_VS_COUPONS))
+				.checkCustomerVsCoupon(customerVsCoupon);
+		System.out.println(sql);
+		Connection con = this.connectionPool.getConnection();
+		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Purchase),
+				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Purchase), false);
+		
+		
+			if(rs!=null) {
+				System.out.println("cant");
+				return false;
+			}else {
+				System.out.println("can");
+				return true;
+			}
 
 	}
 

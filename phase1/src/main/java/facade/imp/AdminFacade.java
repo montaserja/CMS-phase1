@@ -13,8 +13,10 @@ public class AdminFacade extends ClientFacade {
 	@Override
 	public boolean login(String email, String password) {
 
-		if (email.equals("admin@admin.com") && password.equals("admin"))
+		if (email.equals("admin@admin.com") && password.equals("admin")) {
+			System.out.println("admin logged in...");
 			return true;
+		}
 
 		return false;
 	}
@@ -53,12 +55,13 @@ public class AdminFacade extends ClientFacade {
 			System.out.println("No such company to delete!!");
 			return;
 		}
-		if(company.getCoupons() != null)
+		company.setCoupons(couponsDao.getAllCoupons(DBConstants.Company,companyID));
+		if(company.getCoupons() != null) {
 			for (Coupon coupon : company.getCoupons()) {
+				couponsDao.deleteCouponPurchase(-1, coupon.getId());
 				couponsDao.deleteCoupon(coupon.getId());
 			}
-		
-		//need to delete purchase !! IMPORTANT
+		}
 		
 		companiesDao.deleteCompany(companyID);
 
@@ -69,7 +72,13 @@ public class AdminFacade extends ClientFacade {
 	}
 
 	public Company getOneCompany(int companyID) {
-		return companiesDao.getOneCompany(companyID);
+		Company company = companiesDao.getOneCompany(companyID);
+		if(company == null) {
+			System.out.println("No such company for id : "+companyID +" !!");
+			return null;
+		}
+		company.setCoupons(couponsDao.getAllCoupons(DBConstants.Company,companyID));
+		return company;
 	}
 
 	public void addCustomer(Customer customer) {
@@ -88,7 +97,7 @@ public class AdminFacade extends ClientFacade {
 
 	public void deleteCustomer(int customerID) {
 		
-		// need to delete purchase
+		couponsDao.deleteCouponPurchase(customerID, -1);
 		
 		customersDao.deleteCustomer(customerID);
 
