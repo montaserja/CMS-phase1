@@ -1,4 +1,4 @@
-package mapper.imp;
+package mapperDao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,9 +6,8 @@ import java.util.ArrayList;
 
 import constants.DBConstants;
 import model.db.Company;
-import model.db.Coupon;
 
-public class MyMapperCompanyImp implements mapper.infc.MyMapperCompanyInfc {
+public class MyMapperCompanyImp implements mapperDao.MyMapperCompanyInfc {
 	public static MyMapperCompanyImp instance;
 
 	public static MyMapperCompanyImp getInstance() {

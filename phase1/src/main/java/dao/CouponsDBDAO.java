@@ -9,7 +9,7 @@ import app.DB;
 import constants.DBConstants;
 import constants.MsgLog;
 import constants.OperationCRUD;
-import mapper.imp.MyMapperCouponImp;
+import mapperDao.MyMapperCouponImp;
 import model.db.Coupon;
 import model.db.CustomerVsCoupon;
 import sqlQuery.CouponQuery;

@@ -9,7 +9,7 @@ import app.DB;
 import constants.DBConstants;
 import constants.MsgLog;
 import constants.OperationCRUD;
-import mapper.imp.MyMapperCompanyImp;
+import mapperDao.MyMapperCompanyImp;
 import model.db.Company;
 import sqlQuery.CompanyQuery;
 import sqlQuery.QueryFactory;

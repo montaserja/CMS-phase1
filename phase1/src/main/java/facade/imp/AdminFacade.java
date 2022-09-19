@@ -3,7 +3,6 @@ package facade.imp;
 import java.util.ArrayList;
 
 import constants.DBConstants;
-import dao.CompaniesDBDAO;
 import model.db.Company;
 import model.db.Coupon;
 import model.db.Customer;

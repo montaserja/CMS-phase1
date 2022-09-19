@@ -9,7 +9,7 @@ import app.DB;
 import constants.DBConstants;
 import constants.MsgLog;
 import constants.OperationCRUD;
-import mapper.imp.MyMapperCustomerImp;
+import mapperDao.MyMapperCustomerImp;
 import model.db.Customer;
 import sqlQuery.CustomerQuery;
 import sqlQuery.QueryFactory;

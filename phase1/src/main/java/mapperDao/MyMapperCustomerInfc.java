@@ -1,4 +1,4 @@
-package mapper.infc;
+package mapperDao;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;

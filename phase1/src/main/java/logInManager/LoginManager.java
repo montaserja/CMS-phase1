@@ -1,4 +1,4 @@
-package logInManagerD;
+package logInManager;
 
 
 import facade.imp.AdminFacade;
