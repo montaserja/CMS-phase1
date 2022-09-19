@@ -50,7 +50,7 @@ public class Runner {
 		
 		//System.out.println(Category.Electricity.ordinal());
 		
-		checkloginManager();
+//		checkloginManager();
 
 	}
 	
