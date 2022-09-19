@@ -1,11 +1,11 @@
 package facade.imp;
 
-import dao.imp.CompaniesDBDAO;
-import dao.imp.CouponsDBDAO;
-import dao.imp.CustomersDBDAO;
-import dao.infc.CompaniesDAO;
-import dao.infc.CouponsDAO;
-import dao.infc.CustomersDAO;
+import dao.CompaniesDAO;
+import dao.CompaniesDBDAO;
+import dao.CouponsDAO;
+import dao.CouponsDBDAO;
+import dao.CustomersDAO;
+import dao.CustomersDBDAO;
 
 public abstract class ClientFacade {
 	protected CompaniesDAO companiesDao;

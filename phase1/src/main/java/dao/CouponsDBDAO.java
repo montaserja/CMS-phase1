@@ -1,8 +1,7 @@
-package dao.imp;
+package dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import app.ConnectionPool;
@@ -10,7 +9,6 @@ import app.DB;
 import constants.DBConstants;
 import constants.MsgLog;
 import constants.OperationCRUD;
-import dao.infc.CouponsDAO;
 import mapper.imp.MyMapperCouponImp;
 import model.db.Coupon;
 import model.db.CustomerVsCoupon;

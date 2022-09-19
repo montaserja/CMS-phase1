@@ -1,4 +1,4 @@
-package dao.infc;
+package dao;
 
 import java.util.ArrayList;
 

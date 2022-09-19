@@ -1,4 +1,4 @@
-package dao.imp;
+package dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,7 +9,6 @@ import app.DB;
 import constants.DBConstants;
 import constants.MsgLog;
 import constants.OperationCRUD;
-import dao.infc.CustomersDAO;
 import mapper.imp.MyMapperCustomerImp;
 import model.db.Customer;
 import sqlQuery.CustomerQuery;

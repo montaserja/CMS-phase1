@@ -4,8 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import dao.imp.CouponsDBDAO;
-import dao.infc.CouponsDAO;
+import dao.CouponsDAO;
+import dao.CouponsDBDAO;
 
 public class CouponExpirationDailyJob implements Runnable {
 	private CouponsDAO couponDAO;
