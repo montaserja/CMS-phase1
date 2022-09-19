@@ -10,11 +10,8 @@ import constants.DBConstants;
 import constants.MsgLog;
 import constants.OperationCRUD;
 import dao.infc.CustomersDAO;
-import mapper.imp.MyMapperCompanyImp;
 import mapper.imp.MyMapperCustomerImp;
-import model.db.Company;
 import model.db.Customer;
-import sqlQuery.CompanyQuery;
 import sqlQuery.CustomerQuery;
 import sqlQuery.QueryFactory;
 

@@ -65,54 +65,52 @@ public class CouponsDBDAO implements CouponsDAO {
 		return coupons;
 
 	}
-	
-	public ArrayList<Coupon> getAllCoupons(DBConstants client ,int ID) {//insert table and company or customer id --> DBConstant.COUPONS when you need company
+
+	public ArrayList<Coupon> getAllCoupons(DBConstants client, int ID) {// insert table and company or customer id -->
+																		// DBConstant.COUPONS when you need company
 
 		String sql = null;
-		
-		if(client.equals(DBConstants.Customer)) {
-			//SELECT * FROM cms.coupons INNER JOIN cms.customers_vs_coupons ON cms.coupons.ID = cms.customers_vs_coupons.COUPON_ID AND cms.customers_vs_coupons.CUSTOMER_ID =1;
 
-			sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS))
-				.selectOneRowInnerJoin(DBConstants.COUPONS ,DBConstants.CUSTOMERS_VS_COUPONS,DBConstants.ID
-						,DBConstants.COUPON_ID, DBConstants.CUSTOMER_ID , ID);
+		if (client.equals(DBConstants.Customer)) {
+			// SELECT * FROM cms.coupons INNER JOIN cms.customers_vs_coupons ON
+			// cms.coupons.ID = cms.customers_vs_coupons.COUPON_ID AND
+			// cms.customers_vs_coupons.CUSTOMER_ID =1;
 
-		}
-		else if(client.equals(DBConstants.Company)) {
-			sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS))
-					.selectOneRow(DBConstants.COUPONS, DBConstants.COMPANY_ID , ID);
-		}
-		else {
+			sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).selectOneRowInnerJoin(
+					DBConstants.COUPONS, DBConstants.CUSTOMERS_VS_COUPONS, DBConstants.ID, DBConstants.COUPON_ID,
+					DBConstants.CUSTOMER_ID, ID);
+
+		} else if (client.equals(DBConstants.Company)) {
+			sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).selectOneRow(DBConstants.COUPONS,
+					DBConstants.COMPANY_ID, ID);
+		} else {
 			System.out.println("client type not supported");
 			return null;
 		}
-		
-		System.out.println(sql);
-		Connection con = this.connectionPool.getConnection();
-		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.COUPONS, OperationCRUD.Fteched),
-				MsgLog.msgError(DBConstants.COUPONS, OperationCRUD.Fteched), false);
-		
-		
-		ArrayList<Coupon> coupons = MyMapperCouponImp.getInstance().convertResultSetToArrayListOfCoupon(rs);
 
-		return coupons;
-	}
-	
-	
-	public ArrayList<Coupon> getAllCoupons(double maxPrice , int CompanyID) {
-
-		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS))
-				.selectSmallerThanVal(DBConstants.COUPONS , DBConstants.COMPANY_ID,CompanyID ,DBConstants.PRICE, maxPrice);
 		System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.COUPONS, OperationCRUD.Fteched),
 				MsgLog.msgError(DBConstants.COUPONS, OperationCRUD.Fteched), false);
 
 		ArrayList<Coupon> coupons = MyMapperCouponImp.getInstance().convertResultSetToArrayListOfCoupon(rs);
-		//System.out.println(coupons);
+
 		return coupons;
 	}
-	
+
+	public ArrayList<Coupon> getAllCoupons(double maxPrice, int CompanyID) {
+
+		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).selectSmallerThanVal(
+				DBConstants.COUPONS, DBConstants.COMPANY_ID, CompanyID, DBConstants.PRICE, maxPrice);
+		System.out.println(sql);
+		Connection con = this.connectionPool.getConnection();
+		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.COUPONS, OperationCRUD.Fteched),
+				MsgLog.msgError(DBConstants.COUPONS, OperationCRUD.Fteched), false);
+
+		ArrayList<Coupon> coupons = MyMapperCouponImp.getInstance().convertResultSetToArrayListOfCoupon(rs);
+		// System.out.println(coupons);
+		return coupons;
+	}
 
 	public Coupon getOneCoupon(int couponID) {
 
@@ -150,20 +148,32 @@ public class CouponsDBDAO implements CouponsDAO {
 		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.DeletePurchase),
 				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.DeletePurchase), true);
 	}
-	
+
 	public Coupon getCouponByNameAndComId(String title, int CompanyID) {
-		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).selectOneRowTwoCondsIntStr(DBConstants.COUPONS,
-				DBConstants.COMPANY_ID, CompanyID , DBConstants.TITLE , title);
+		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).selectOneRowTwoCondsIntStr(
+				DBConstants.COUPONS, DBConstants.COMPANY_ID, CompanyID, DBConstants.TITLE, title);
 		System.out.println(sql);
-		
+
 		Connection con = this.connectionPool.getConnection();
 		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Selected),
 				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Selected), false);
-		
+
 		Coupon coupon = MyMapperCouponImp.getInstance().convertResultSetToCoupon(rs);
-		
+
 		return coupon;
-		
+
 	}
 
+	public void deleteExpirationCoupon(String currDate) {
+
+//		String sql = "DELETE cms.COUPONS.*,cms.CUSTOMERS_VS_COUPONS.* FROM cms.COUPONS inner join cms.CUSTOMERS_VS_COUPONS WHERE cms.COUPONS.ID = cms.CUSTOMERS_VS_COUPONS.COUPON_ID AND '"
+//				+ currDate + "' >= cms.COUPONS.END_DATE;";
+
+		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).deleteExpirationCoupon(currDate);
+		System.out.println(sql);
+		Connection con = this.connectionPool.getConnection();
+		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.DeletePurchase),
+				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.DeletePurchase), true); 
+
+	}
 }
