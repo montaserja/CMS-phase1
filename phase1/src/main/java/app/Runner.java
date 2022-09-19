@@ -16,6 +16,7 @@ import logInManagerD.ClientType;
 import logInManagerD.LoginManager;
 import dao.imp.CompaniesDBDAO;
 import dao.imp.CouponsDBDAO;
+import model.db.Category;
 import model.db.Company;
 import model.db.Coupon;
 import model.db.Customer;
