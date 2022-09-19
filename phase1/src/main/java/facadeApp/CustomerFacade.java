@@ -1,4 +1,4 @@
-package facade.imp;
+package facadeApp;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,7 +7,6 @@ import java.util.Date;
 
 import constants.DBConstants;
 import model.db.Category;
-import model.db.Company;
 import model.db.Coupon;
 import model.db.Customer;
 

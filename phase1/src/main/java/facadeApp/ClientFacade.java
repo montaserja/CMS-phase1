@@ -1,4 +1,4 @@
-package facade.imp;
+package facadeApp;
 
 import dao.CompaniesDAO;
 import dao.CompaniesDBDAO;

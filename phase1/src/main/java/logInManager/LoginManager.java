@@ -1,10 +1,10 @@
 package logInManager;
 
 
-import facade.imp.AdminFacade;
-import facade.imp.ClientFacade;
-import facade.imp.CompanyFacade;
-import facade.imp.CustomerFacade;
+import facadeApp.AdminFacade;
+import facadeApp.ClientFacade;
+import facadeApp.CompanyFacade;
+import facadeApp.CustomerFacade;
 
 public class LoginManager {
 	
