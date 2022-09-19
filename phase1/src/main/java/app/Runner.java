@@ -16,7 +16,6 @@ import logInManagerD.ClientType;
 import logInManagerD.LoginManager;
 import dao.imp.CompaniesDBDAO;
 import dao.imp.CouponsDBDAO;
-import model.db.Category;
 import model.db.Company;
 import model.db.Coupon;
 import model.db.Customer;
@@ -24,8 +23,15 @@ import model.db.Customer;
 public class Runner {
 
 	public static void main(String[] args) {
+		DB.getInstance();
+		
 		DB.createDB();
 		System.out.println();
+		
+		DB.startExpiredCouponTask();
+		
+		//		DB.stopExpiredCouponTask();
+		
 		
 		
 		//checkCompanySQLs();
@@ -37,7 +43,9 @@ public class Runner {
 		
 		//checkCompanyFacade();
 		
+
 		//checkCustomerFacade();
+
 		
 		//System.out.println(Category.Electricity.ordinal());
 		

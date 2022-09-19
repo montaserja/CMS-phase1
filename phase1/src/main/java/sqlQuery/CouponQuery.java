@@ -126,4 +126,48 @@ public class CouponQuery extends GenQuery {
 
 	}
 
+	public String deleteExpirationCoupon(String currDate) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("DELETE ");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(DBConstants.COUPONS);
+		sql.append(".*,");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(DBConstants.CUSTOMERS_VS_COUPONS);
+		sql.append(".* ");
+		sql.append("FROM ");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(DBConstants.COUPONS);
+		sql.append(" inner join ");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(DBConstants.CUSTOMERS_VS_COUPONS);
+		sql.append(" WHERE ");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(DBConstants.COUPONS);
+		sql.append(".");
+		sql.append(DBConstants.ID);
+		sql.append("=");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(DBConstants.CUSTOMERS_VS_COUPONS);
+		sql.append(".");
+		sql.append(DBConstants.COUPON_ID);
+		sql.append(" AND '");
+		sql.append(currDate);
+		sql.append("' >= ");
+		sql.append(sqlQueries.nameDB);
+		sql.append(".");
+		sql.append(DBConstants.COUPONS);
+		sql.append(".");
+		sql.append(DBConstants.END_DATE);
+		sql.append(";");
+
+		return sql.toString();
+
+	}
 }

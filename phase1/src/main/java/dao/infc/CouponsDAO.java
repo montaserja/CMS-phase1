@@ -27,7 +27,10 @@ public interface CouponsDAO {
 	public ArrayList<Coupon> getAllCoupons(DBConstants table ,int ID);
 	
 	public ArrayList<Coupon> getAllCoupons(double maxPrice , int CompanyID);
-	
+
 	public boolean canCouponPurchaseExist(int CustomerID, int copounID);
+
+	public void deleteExpirationCoupon(String date);
+
 
 }
