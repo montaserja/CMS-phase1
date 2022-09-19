@@ -173,6 +173,7 @@ public class CouponsDBDAO implements CouponsDAO {
 				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.DeletePurchase), true);
 	}
 	
+	
 	public Coupon getCouponByNameAndComId(String title, int CompanyID) {
 		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).selectOneRowTwoCondsIntStr(DBConstants.COUPONS,
 				DBConstants.COMPANY_ID, CompanyID , DBConstants.TITLE , title);

@@ -52,7 +52,7 @@ public class CompanyFacade extends ClientFacade {
 	}
 
 	public void deleteCoupon(int couponID) {
-		// need to delete purchase
+		couponsDao.deleteCouponPurchase(-1, couponID);
 		couponsDao.deleteCoupon(couponID);
 	}
 
@@ -66,7 +66,7 @@ public class CompanyFacade extends ClientFacade {
 			return null;
 		ArrayList<Coupon> resultCoupons = new ArrayList<Coupon>() ;
 		for (Coupon coupon : coupons) {
-			if(coupon.getCategoryID() == category.ordinal() + 1)
+			if(coupon != null && coupon.getCategoryID() == category.ordinal() + 1)
 				resultCoupons.add(coupon);
 		}
 		return resultCoupons;
@@ -77,7 +77,13 @@ public class CompanyFacade extends ClientFacade {
 	}
 
 	public Company getCompanyDetails() {
-		return companiesDao.getOneCompany(this.companyID);
+		Company company = companiesDao.getOneCompany(this.companyID);
+		if(company == null) {
+			System.out.println("No such company for id : "+this.companyID +" !!");
+			return null;
+		}
+		company.setCoupons(couponsDao.getAllCoupons(DBConstants.Company,this.companyID));
+		return company;
 	}
 
 }

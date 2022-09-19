@@ -31,11 +31,11 @@ public class Runner {
 
 		//checkCouponSQLs();
 		
-		//checkAdminFacade();
+		checkAdminFacade();
 		
 		//checkCompanyFacade();
 		
-		checkCustomerFacade();
+		//checkCustomerFacade();
 		
 		//System.out.println(Category.Electricity.ordinal());
 
@@ -99,19 +99,29 @@ public class Runner {
 		System.out.println("LogIn : " + admin.login("admin@admin.com" , "admin"));
 		System.out.println();
 		ArrayList<Coupon> coupons = null;
-		Company c = new Company(1,"Sabbah", "ah@gmail.com", "123123", coupons);
+		Company c = new Company(1,"Sabbah", "ahm@gmail.com", "123123", coupons);
 		((AdminFacade)admin).addCompany(c);
 		System.out.println();
-		Company c1 = new Company(2,"Sab", "ah@gmail.com", "123123", coupons);
+		Company c1 = new Company(2,"Montaser", "montaser@gmail.com", "123123", coupons);
 		((AdminFacade)admin).addCompany(c1);	
 		System.out.println();
-		c.setEmail("asd@ds.com");
-		((AdminFacade)admin).updateCompany(c);
+		//c.setEmail("asd@ds.com");
+		//((AdminFacade)admin).updateCompany(c);
 		
 		//admin.deleteCompany(1);
 
 		Customer customer = new Customer(1, "Ahmad", "Sabbah", "ahmad@gmail.com", "123123", coupons);
 		((AdminFacade)admin).addCustomer(customer);
+		
+		Customer customer1 = new Customer(2, "Montaser", "Jafrah", "mo@gmail.com", "123123", coupons);
+		((AdminFacade)admin).addCustomer(customer);
+		((AdminFacade)admin).addCustomer(customer1);
+		
+		System.out.println();
+		System.out.println();
+		((AdminFacade)admin).deleteCompany(1);
+		//((AdminFacade)admin).deleteCustomer(1);
+		
 		
 	}
 

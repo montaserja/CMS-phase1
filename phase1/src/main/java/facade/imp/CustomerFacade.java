@@ -68,8 +68,11 @@ public class CustomerFacade extends ClientFacade {
 		if(coupons == null)
 			return null;
 		ArrayList<Coupon> resultCoupons = new ArrayList<Coupon>() ;
+		
+		System.out.println(coupons);
+		
 		for (Coupon coupon : coupons) {
-			if(coupon.getCategoryID() == category.ordinal() + 1)
+			if(coupon != null && coupon.getCategoryID() == category.ordinal() + 1)
 				resultCoupons.add(coupon);
 		}
 		return resultCoupons;
@@ -81,7 +84,7 @@ public class CustomerFacade extends ClientFacade {
 			return null;
 		ArrayList<Coupon> resultCoupons = new ArrayList<Coupon>() ;
 		for (Coupon coupon : coupons) {
-			if(coupon.getPrice() < maxPrice)
+			if(coupon != null && coupon.getPrice() < maxPrice)
 				resultCoupons.add(coupon);
 		}
 		return resultCoupons;
