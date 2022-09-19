@@ -12,6 +12,8 @@ import facade.imp.AdminFacade;
 import facade.imp.ClientFacade;
 import facade.imp.CompanyFacade;
 import facade.imp.CustomerFacade;
+import logInManagerD.ClientType;
+import logInManagerD.LoginManager;
 import dao.imp.CompaniesDBDAO;
 import dao.imp.CouponsDBDAO;
 import model.db.Category;
@@ -31,14 +33,26 @@ public class Runner {
 
 		//checkCouponSQLs();
 		
-		checkAdminFacade();
+		//checkAdminFacade();
 		
 		//checkCompanyFacade();
 		
 		//checkCustomerFacade();
 		
 		//System.out.println(Category.Electricity.ordinal());
+		
+		checkloginManager();
 
+	}
+	
+	private static void checkloginManager() {
+		LoginManager manager = LoginManager.getInstance();
+		
+		//ClientFacade client = manager.login("admin@admin.com", "admin", ClientType.Administrator);
+		//ClientFacade client = manager.login("ah@gmail.com", "123123", ClientType.Company);
+		ClientFacade client = manager.login("ahmad@gmail.com", "123123", ClientType.Customer);
+		//System.out.println(client);
+		
 	}
 	
 	private static void checkCustomerFacade() {

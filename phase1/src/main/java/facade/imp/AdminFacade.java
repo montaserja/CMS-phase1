@@ -13,8 +13,10 @@ public class AdminFacade extends ClientFacade {
 	@Override
 	public boolean login(String email, String password) {
 
-		if (email.equals("admin@admin.com") && password.equals("admin"))
+		if (email.equals("admin@admin.com") && password.equals("admin")) {
+			System.out.println("admin logged in...");
 			return true;
+		}
 
 		return false;
 	}
