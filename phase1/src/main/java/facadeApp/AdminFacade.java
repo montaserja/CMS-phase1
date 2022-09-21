@@ -3,6 +3,7 @@ package facadeApp;
 import java.util.ArrayList;
 
 import constants.DBConstants;
+import constants.DataDemo;
 import model.db.Company;
 import model.db.Coupon;
 import model.db.Customer;
@@ -11,8 +12,8 @@ public class AdminFacade extends ClientFacade {
 
 	@Override
 	public boolean login(String email, String password) {
-
-		if (email.equals("admin@admin.com") && password.equals("admin")) {
+		
+		if (email.equals(DataDemo.EMAIL_ADMIN) && password.equals(DataDemo.PASS)) {
 			System.out.println("admin logged in...");
 			return true;
 		}

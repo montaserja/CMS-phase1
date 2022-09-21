@@ -107,7 +107,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			.selectOneRowStrVal(DBConstants.COMPANIES, DBConstants.EMAIL,str );
 			
 		
-		System.out.println(sql);
+//		System.out.println(sql);
 		
 		Connection con = null;
 

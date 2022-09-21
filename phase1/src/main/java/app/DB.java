@@ -71,7 +71,7 @@ public class DB {
 					return null;
 				}
 			}
-			System.out.println(msg);
+//			System.out.println(msg);
 
 		} catch (SQLException e) {
 			System.out.println(errMsg);
