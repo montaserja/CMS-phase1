@@ -5,36 +5,91 @@ import java.util.ArrayList;
 import constants.DataDemo;
 import facadeApp.AdminFacade;
 import facadeApp.ClientFacade;
+import facadeApp.CompanyFacade;
 import logInManager.ClientType;
 import logInManager.LoginManager;
 import model.db.Company;
+import model.db.Coupon;
 import model.db.Customer;
 
 public class Test {
 	public static void testAll() {
-		// preparation the database
-		DB.createDB();
-		System.out.println();
-
-		// A step
-		DB.getInstance();
-		DB.startExpiredCouponTask();
-		System.out.println();
-
-		// B step - Login by LoginManager as Administrator
-		System.out.println();
-		System.out.println(TestData.line + " ADMIN SECTION " + TestData.line);
-		allAdminFacadeOperation(ClientType.Administrator);
-		System.out.println(TestData.line + " END OF ADMIN SECTION " + TestData.line);
+		try{
+			// preparation the database
+			DB.createDB();
+			System.out.println();
+	
+			// A step
+			DB.getInstance();
+			DB.startExpiredCouponTask();
+			System.out.println();
+	
+			// creating companies and customers
+			Company[] companies = companiesGen();	
+			Customer[] customers = customersGen();
+			
+			// B step - Login by LoginManager as Administrator
+			System.out.println();
+			System.out.println(TestData.line + " ADMIN SECTION " + TestData.line);
+			allAdminFacadeOperation(companies , customers);
+			System.out.println();
+			System.out.println(TestData.line + " END OF ADMIN SECTION " + TestData.line);
+			
+			
+			
+			// C step - Login by LoginManager as Company
+			System.out.println();
+			System.out.println(TestData.line + " COMPANY SECTION " + TestData.line);
+			allCompanyFacadeOperation(companies[2].getEmail() , companies[2].getPassword());
+			System.out.println();
+			System.out.println(TestData.line + " END OF COMPANY SECTION " + TestData.line);
+			
+			
+			
+			ConnectionPool.getInstance().closeAllConnections();
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
-		ConnectionPool.getInstance().closeAllConnections();
+	}
+	
+	private static void allCompanyFacadeOperation( String email , String password) {
+		ClientFacade client = LoginManager.getInstance().login(email,password,
+				ClientType.Company);
+		if(client == null) {
+			System.out.println("company email or password isn't correct");
+			return;
+		}
+		CompanyFacade company = ((CompanyFacade) client);
+		
+		Coupon[] coupons = CouponsGen(3);
+		
+		System.out.println("adding coupons to DB");
+		for (Coupon coupon : coupons) {
+			company.addCoupon(coupon);
+			System.out.println("coupon " + coupon.getTitle() + " is in the DB");
+		}
+		System.out.println();
+		
+		System.out.println("get companies coupons from DB");
+		ArrayList<Coupon> DBcoupons = company.getCompanyCoupons();
+		for (Coupon coupon : DBcoupons) {
+			System.out.println(coupon);
+		}
+		System.out.println();
+		System.out.println("update Coupon " + DBcoupons.get(2).getId() + " name");
+		DBcoupons.get(2).setTitle("Updated title");
+		company.updateCoupon(DBcoupons.get(2));
+		
+		System.out.println("deleting coupon " + DBcoupons.get(2).getId());
+		company.deleteCoupon(DBcoupons.get(2).getId());
+		
 		
 	}
 
-	private static void allAdminFacadeOperation(ClientType clientType) {
+	private static void allAdminFacadeOperation(Company[] companies , Customer[] customers) {
 		
-		Company[] companies = companiesGen();	
-		Customer[] customers = customersGen();
+
 		
 		ClientFacade client = LoginManager.getInstance().login(DataDemo.EMAIL_ADMIN, DataDemo.PASS_ADMIN,
 				ClientType.Administrator);
@@ -141,6 +196,19 @@ public class Test {
 		}
 		System.out.println();
 		return customers;
+	}
+	
+	private static Coupon[] CouponsGen(int companyID) {
+		System.out.println();
+		Coupon[] coupons = new Coupon[TestData.couponsNum];
+		System.out.println("generated " + TestData.couponsNum + " coupons for testing (before adding them to DB)");
+		for(int i = 0 ; i< TestData.couponsNum ; ++i) {
+			coupons[i] = new Coupon(companyID, (i%4)+1 , TestData.couponsTitles[i], "description", TestData.startDates[i],
+					TestData.endDates[i], TestData.amount[i], TestData.price[i], "sd");
+			System.out.println(coupons[i]);
+		}
+		System.out.println();
+		return coupons;
 	}
 	
 	

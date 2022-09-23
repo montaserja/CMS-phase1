@@ -41,7 +41,7 @@ public class CompanyFacade extends ClientFacade {
 			return;
 		}
 		
-		Coupon c = couponsDao.getCouponByNameAndComId(coupon.getTitle(), this.companyID);
+		Coupon c = couponsDao.getOneCoupon(coupon.getId());
 		
 		if(c != null && coupon.getId() == c.getId()) {
 			couponsDao.updateCoupon(coupon);

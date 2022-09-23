@@ -25,7 +25,7 @@ public class CouponsDBDAO implements CouponsDAO {
 
 	public void addCoupon(Coupon coupon) {
 		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).addCoupon(coupon);
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Inserted),
 				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Inserted), true);
@@ -34,7 +34,7 @@ public class CouponsDBDAO implements CouponsDAO {
 
 	public void updateCoupon(Coupon coupon) {
 		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).updateCoupon(coupon);
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Updated),
 				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Updated), true);
@@ -43,7 +43,7 @@ public class CouponsDBDAO implements CouponsDAO {
 	public void deleteCoupon(int couponID) {
 		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).deleteRow(DBConstants.COUPONS,
 				couponID);
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Deleted),
 				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Deleted), true);
@@ -115,13 +115,13 @@ public class CouponsDBDAO implements CouponsDAO {
 
 		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).selectOneRow(DBConstants.COUPONS,
 				DBConstants.ID, couponID);
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Fteched),
 				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Fteched), false);
 
 		Coupon coupon = MyMapperCouponImp.getInstance().convertResultSetToCoupon(rs);
-		System.out.println(coupon);
+		//System.out.println(coupon);
 
 		return coupon;
 
@@ -172,7 +172,7 @@ public class CouponsDBDAO implements CouponsDAO {
 	public Coupon getCouponByNameAndComId(String title, int CompanyID) {
 		String sql = ((CouponQuery) QueryFactory.createInstance(DBConstants.COUPONS)).selectOneRowTwoCondsIntStr(
 				DBConstants.COUPONS, DBConstants.COMPANY_ID, CompanyID, DBConstants.TITLE, title);
-		System.out.println(sql);
+		//System.out.println(sql);
 
 		Connection con = this.connectionPool.getConnection();
 		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Selected),

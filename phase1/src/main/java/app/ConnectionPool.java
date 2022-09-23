@@ -32,7 +32,7 @@ public class ConnectionPool {
 		} catch (ClassNotFoundException e) {
 			System.out.println("mostly pom.xml misses connector/j " + e.getMessage());
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 
 	}
