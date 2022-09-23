@@ -36,7 +36,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 
 	public void addCompany(Company company) {
 		String sql = ((CompanyQuery) QueryFactory.createInstance(DBConstants.COMPANIES)).addCompany(company);
-		System.out.println(sql);
+		//System.out.println(sql);
 
 		Connection con = this.connectionPool.getConnection();
 		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Company, OperationCRUD.Inserted),
@@ -46,7 +46,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 
 	public void updateCompany(Company company) {
 		String sql = ((CompanyQuery) QueryFactory.createInstance(DBConstants.COMPANIES)).updateCompany(company);
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Company, OperationCRUD.Updated),
 				MsgLog.msgError(DBConstants.Company, OperationCRUD.Updated), true);
@@ -56,7 +56,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 	public void deleteCompany(int companyID) {
 		String sql = ((CompanyQuery) QueryFactory.createInstance(DBConstants.COMPANIES))
 				.deleteRow(DBConstants.COMPANIES, companyID);
-		System.out.println(sql);
+		//System.out.println(sql);
 
 		Connection con = this.connectionPool.getConnection();
 		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Company, OperationCRUD.Deleted),
@@ -68,14 +68,14 @@ public class CompaniesDBDAO implements CompaniesDAO {
 
 		String sql = ((CompanyQuery) QueryFactory.createInstance(DBConstants.COMPANIES))
 				.selectAllData(DBConstants.COMPANIES);
-		System.out.println(sql);
+		//System.out.println(sql);
 
 		Connection con = this.connectionPool.getConnection();
 		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.COMPANIES, OperationCRUD.Fteched),
 				MsgLog.msgError(DBConstants.COMPANIES, OperationCRUD.Fteched), false);
 
 		ArrayList<Company> companies = MyMapperCompanyImp.getInstance().convertResultSetToArrayListOfCompany(rs);
-		System.out.println(companies);
+		//System.out.println(companies);
 		return companies;
 
 	}
@@ -83,7 +83,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 	public Company getOneCompany(int companyID) {
 		String sql = ((CompanyQuery) QueryFactory.createInstance(DBConstants.COMPANIES))
 				.selectOneRow(DBConstants.COMPANIES, DBConstants.ID, companyID);
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection con = null;
 
 		con = this.connectionPool.getConnection();
@@ -91,7 +91,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 				MsgLog.msgError(DBConstants.Company, OperationCRUD.Fteched), false);
 
 		Company company = MyMapperCompanyImp.getInstance().convertResultSetToCompany(rs);
-		System.out.println(company);
+		//System.out.println(company);
 		return company;
 
 	}

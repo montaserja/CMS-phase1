@@ -87,7 +87,7 @@ public class CouponsDBDAO implements CouponsDAO {
 			return null;
 		}
 
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.COUPONS, OperationCRUD.Fteched),
 				MsgLog.msgError(DBConstants.COUPONS, OperationCRUD.Fteched), false);
@@ -163,7 +163,7 @@ public class CouponsDBDAO implements CouponsDAO {
 	public void deleteCouponPurchase(int customerID, int couponID) {
 		String sql = ((CustomerVsCouponQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS_VS_COUPONS))
 				.deleteCustomerVsCouponRow(new CustomerVsCoupon(1, customerID, couponID));
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.DeletePurchase),
 				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.DeletePurchase), true);

@@ -13,7 +13,7 @@ public class AdminFacade extends ClientFacade {
 	@Override
 	public boolean login(String email, String password) {
 		
-		if (email.equals(DataDemo.EMAIL_ADMIN) && password.equals(DataDemo.PASS)) {
+		if (email.equals(DataDemo.EMAIL_ADMIN) && password.equals(DataDemo.PASS_ADMIN)) {
 			System.out.println("admin logged in...");
 			return true;
 		}
@@ -56,11 +56,14 @@ public class AdminFacade extends ClientFacade {
 			return;
 		}
 		company.setCoupons(couponsDao.getAllCoupons(DBConstants.Company,companyID));
-		if(company.getCoupons() != null) {
+		ArrayList<Coupon> coupons = company.getCoupons();
+		System.out.println("deleting company coupons...");
+		if(coupons != null && coupons.get(0) != null) {
 			for (Coupon coupon : company.getCoupons()) {
 				couponsDao.deleteCouponPurchase(-1, coupon.getId());
 				couponsDao.deleteCoupon(coupon.getId());
 			}
+		
 		}
 		
 		companiesDao.deleteCompany(companyID);
@@ -106,6 +109,16 @@ public class AdminFacade extends ClientFacade {
 	public ArrayList<Customer> getAllCustomers() {
 		
 		return customersDao.getAllCustomers();
+	}
+	
+	public Customer getOneCustomer(int customerID) {
+		Customer customer = customersDao.getOneCustomer(customerID);
+		if(customer == null) {
+			System.out.println("No such customer for id : "+customerID +" !!");
+			return null;
+		}
+		customer.setCoupons(couponsDao.getAllCoupons(DBConstants.Customer,customerID));
+		return customer;
 	}
 
 }

@@ -37,7 +37,7 @@ public class CustomersDBDAO implements CustomersDAO {
 	public void addCustomer(Customer customer) {
 
 		String sql = ((CustomerQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS)).addCustomer(customer);
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Customer, OperationCRUD.Inserted),
 				MsgLog.msgError(DBConstants.Customer, OperationCRUD.Inserted), true);
@@ -46,7 +46,7 @@ public class CustomersDBDAO implements CustomersDAO {
 
 	public void updateCustomer(Customer customer) {
 		String sql = ((CustomerQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS)).updateCustomer(customer);
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Customer, OperationCRUD.Updated),
 				MsgLog.msgError(DBConstants.Customer, OperationCRUD.Updated), true);
@@ -55,7 +55,7 @@ public class CustomersDBDAO implements CustomersDAO {
 	public void deleteCustomer(int customerID) {
 		String sql = ((CustomerQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS))
 				.deleteRow(DBConstants.CUSTOMERS, customerID);
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 		DB.excute(sql, con,MsgLog.msgSuccss(DBConstants.Customer, OperationCRUD.Deleted),
 				MsgLog.msgError(DBConstants.Customer, OperationCRUD.Deleted), true);
@@ -65,7 +65,7 @@ public class CustomersDBDAO implements CustomersDAO {
 
 		String sql = ((CustomerQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS))
 				.selectAllData(DBConstants.CUSTOMERS);
-		System.out.println(sql);
+		//System.out.println(sql);
 
 		Connection con = this.connectionPool.getConnection();
 
@@ -73,7 +73,7 @@ public class CustomersDBDAO implements CustomersDAO {
 				MsgLog.msgError(DBConstants.CUSTOMERS, OperationCRUD.Fteched), false);
 
 		ArrayList<Customer> customers = MyMapperCustomerImp.getInstance().convertResultSetToArrayListOfCustomer(rs);
-		System.out.println(customers);
+		//System.out.println(customers);
 		return customers;
 	}
 
@@ -81,7 +81,7 @@ public class CustomersDBDAO implements CustomersDAO {
 
 		String sql = ((CustomerQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS))
 				.selectOneRow(DBConstants.CUSTOMERS, DBConstants.ID, customerID);
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 
 		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Customer, OperationCRUD.Fteched),
@@ -98,7 +98,7 @@ public class CustomersDBDAO implements CustomersDAO {
 			.selectOneRowStrVal(DBConstants.CUSTOMERS, DBConstants.EMAIL,email );
 			
 		
-		System.out.println(sql);
+		//System.out.println(sql);
 		
 		Connection con = null;
 
@@ -107,7 +107,7 @@ public class CustomersDBDAO implements CustomersDAO {
 				MsgLog.msgError(DBConstants.Customer, OperationCRUD.Selected), false);
 
 		Customer customer = MyMapperCustomerImp.getInstance().convertResultSetToCustomer(rs);
-		System.out.println(customer);
+		//System.out.println(customer);
 		return customer;
 		
 	}

@@ -1,6 +1,7 @@
 package app;
 
 import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ import model.db.Category;
 import model.db.Company;
 import model.db.Coupon;
 import model.db.Customer;
+
 public class Runner {
 
 	public static void main(String[] args) {
