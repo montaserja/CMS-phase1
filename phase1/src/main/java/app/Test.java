@@ -6,8 +6,10 @@ import constants.DataDemo;
 import facadeApp.AdminFacade;
 import facadeApp.ClientFacade;
 import facadeApp.CompanyFacade;
+import facadeApp.CustomerFacade;
 import logInManager.ClientType;
 import logInManager.LoginManager;
+import model.db.Category;
 import model.db.Company;
 import model.db.Coupon;
 import model.db.Customer;
@@ -44,12 +46,55 @@ public class Test {
 			System.out.println();
 			System.out.println(TestData.line + " END OF COMPANY SECTION " + TestData.line);
 			
+			// D step - Login by LoginManager as Customer
+			System.out.println();
+			System.out.println(TestData.line + " CUSTOMER SECTION " + TestData.line);
+			allCustomerFacadeOperation(customers[2].getEmail() , customers[2].getPassword());
+			System.out.println();
+			System.out.println(TestData.line + " END OF CUSTOMER SECTION " + TestData.line);
 			
 			
 			ConnectionPool.getInstance().closeAllConnections();
+			//DB.stopExpiredCouponTask();
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		
+	}
+	
+	private static void allCustomerFacadeOperation( String email , String password) {
+		ClientFacade client = LoginManager.getInstance().login(email,password,
+				ClientType.Customer);
+		if(client == null) {
+			System.out.println("customer email or password isn't correct");
+			return;
+		}
+		CustomerFacade customer = ((CustomerFacade)client);
+		
+		ClientFacade admin = LoginManager.getInstance().login(DataDemo.EMAIL_ADMIN, DataDemo.PASS_ADMIN,
+				ClientType.Administrator);
+		
+		System.out.println();
+		ArrayList<Coupon> coupons = ((AdminFacade) admin).getOneCompany(3).getCoupons();
+		if(coupons.size() > 0) {
+			//System.out.println(coupons.get(0));
+			customer.purchaseCoupon(coupons.get(0));
+			customer.purchaseCoupon(coupons.get(1));
+		}else {
+			System.out.println("there is no coupons for the company");
+		}
+		System.out.println();
+		System.out.println("all customer coupons : ");
+		System.out.println(customer.getCustomerCoupons());
+		System.out.println();
+		System.out.println("all customer coupons with category food :");
+		System.out.println(customer.getCustomerCoupons(Category.Food));
+		System.out.println();
+		System.out.println("all customer coupons at max price 12 :");
+		System.out.println(customer.getCustomerCoupons(12));
+		System.out.println();
+		System.out.println("customer details :");
+		System.out.println(customer.getCustomerDetails());
 		
 	}
 	

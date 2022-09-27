@@ -132,7 +132,7 @@ public class CouponsDBDAO implements CouponsDAO {
 
 		String sql = ((CustomerVsCouponQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS_VS_COUPONS))
 				.addCustomerVsCoupon(customerVsCoupon);
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 		DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Purchase),
 				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Purchase), true);
@@ -144,17 +144,17 @@ public class CouponsDBDAO implements CouponsDAO {
 
 		String sql = ((CustomerVsCouponQuery) QueryFactory.createInstance(DBConstants.CUSTOMERS_VS_COUPONS))
 				.checkCustomerVsCoupon(customerVsCoupon);
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection con = this.connectionPool.getConnection();
 		ResultSet rs = DB.excute(sql, con, MsgLog.msgSuccss(DBConstants.Coupon, OperationCRUD.Purchase),
 				MsgLog.msgError(DBConstants.Coupon, OperationCRUD.Purchase), false);
 		
 		
 			if(rs!=null) {
-				System.out.println("cant");
+				//System.out.println("cant");
 				return false;
 			}else {
-				System.out.println("can");
+				//System.out.println("can");
 				return true;
 			}
 

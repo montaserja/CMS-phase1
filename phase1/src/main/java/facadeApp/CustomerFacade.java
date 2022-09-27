@@ -49,7 +49,7 @@ public class CustomerFacade extends ClientFacade {
 			if(coupon.getAmount() > 0 && !dateIsAfterThanToday(coupon.getStartDate()) && dateIsAfterThanToday(coupon.getEndDate())) {
 					couponsDao.addCouponPurchase(this.customerID, coupon.getId());
 					coupon.setAmount(coupon.getAmount()-1);
-					System.out.println("coupon amount " + coupon.getAmount());
+					//System.out.println("coupon amount " + coupon.getAmount());
 					couponsDao.updateCoupon(coupon);
 			}
 		}else {
@@ -68,7 +68,7 @@ public class CustomerFacade extends ClientFacade {
 			return null;
 		ArrayList<Coupon> resultCoupons = new ArrayList<Coupon>() ;
 		
-		System.out.println(coupons);
+		//System.out.println(coupons);
 		
 		for (Coupon coupon : coupons) {
 			if(coupon != null && coupon.getCategoryID() == category.ordinal() + 1)
