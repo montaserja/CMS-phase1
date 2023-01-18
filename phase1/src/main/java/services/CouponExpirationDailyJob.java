@@ -16,7 +16,7 @@ public class CouponExpirationDailyJob implements Runnable {
 		this.couponDAO = new CouponsDBDAO();
 	}
 
-	@Override
+	//@Override
 	public void run() {
 
 		synchronized (this) {
