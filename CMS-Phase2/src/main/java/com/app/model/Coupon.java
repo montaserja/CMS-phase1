@@ -34,6 +34,14 @@ public class Coupon {
 	@JoinColumn(name = "CatagoryId", referencedColumnName = "id")
 	private Category categoryID;
 	
+//	@ManyToOne
+//	private CustomerVsCoupon CVC;
+	
+	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@JoinColumn(name = "CustomerId",referencedColumnName = "id")
+	private Customer customer;
+
+	
 	@Column(name = "title")
 	private String title;
 	
