@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class Coupon {
 	@JoinColumn(name = "CompanyId",referencedColumnName = "id")
 	private Company company;
 
-	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	@JoinColumn(name = "CatagoryId", referencedColumnName = "id")
 	private Category categoryID;
 	
