@@ -12,6 +12,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+import com.app.model.Company;
+import com.app.services.CompanyService;
+import com.app.services.Impl.CompanyServiceImpl;
+
 import ch.qos.logback.classic.Logger;
 
 
@@ -23,9 +27,14 @@ public class CmsPhase2Application {
 	public static void main(String[] args) {
 		SpringApplication.run(CmsPhase2Application.class, args);
 		Logger logger = (Logger) LoggerFactory.getLogger(CmsPhase2Application.class);
+		
+		
+
+		
 		logger.info("sadasd");
 
 	}
+	
 	
 	
 
