@@ -32,13 +32,10 @@ public class CmsPhase2Application {
 	public static void main(String[] args) {
 		SpringApplication.run(CmsPhase2Application.class, args);
 		Logger logger = (Logger) LoggerFactory.getLogger(CmsPhase2Application.class);
-		
-		
 
-		
 		logger.info("sadasd");
-
 	}
+	
 	
    @Bean("adminService")
     public AdminService adminService(){
@@ -49,3 +46,4 @@ public class CmsPhase2Application {
 	
 
 }
+

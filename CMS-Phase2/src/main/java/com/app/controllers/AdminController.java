@@ -1,17 +1,19 @@
 package com.app.controllers;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import com.app.CmsPhase2Application;
 import com.app.model.Company;
 import com.app.services.AdminService;
 
+import ch.qos.logback.classic.Logger;
+
 @RestController
-@RequestMapping(value = "/admin")
+@RequestMapping("/admin")
 public class AdminController {
 	
 	private final AdminService adminService;
@@ -21,9 +23,27 @@ public class AdminController {
         this.adminService = adminService;
     }
 	
-	@RequestMapping(value = "/addCompany" , method = RequestMethod.POST)
-	public @ResponseBody String addCompany(@RequestBody Company company) {
-		return null;
+	@PostMapping(value = "/addCompany" )
+	@ResponseBody
+	public ResponseEntity<?> addCompany(@RequestBody Company company) {
+		
+		Logger logger = (Logger) LoggerFactory.getLogger(CmsPhase2Application.class);
+		logger.info("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		adminService.addCompany(company);
+		System.out.println(adminService.getOneCompany(1));
+		return new ResponseEntity<>(HttpStatus.CREATED);
+		
+	}
+	
+	
+	@RequestMapping(value = "/a" , method = RequestMethod.GET)
+	@ResponseBody
+	public String a() {
+		
+		Logger logger = (Logger) LoggerFactory.getLogger(CmsPhase2Application.class);
+		logger.info("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
+		return "OK";
 		
 	}
 
