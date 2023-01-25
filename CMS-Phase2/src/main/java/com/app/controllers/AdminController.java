@@ -1,5 +1,7 @@
 package com.app.controllers;
 
+import java.util.List;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +31,7 @@ public class AdminController {
         this.adminService = adminService;
     }
 	
-	@PostMapping(value = "/addCompany" )
+	@PostMapping(value = "/companies" )
 	@ResponseBody
 	public ResponseEntity<?> addCompany(@RequestBody Company company) {
 		try {
@@ -44,16 +46,48 @@ public class AdminController {
 		
 	}
 	
-	
-	@RequestMapping(value = "/a" , method = RequestMethod.GET)
+	@GetMapping(value = "/companies/{companyId}")
 	@ResponseBody
-	public String a() {
-		
-		Logger logger = (Logger) LoggerFactory.getLogger(CmsPhase2Application.class);
-		logger.info("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
-
-		return "OK";
-		
+	public ResponseEntity<?> getCompanyById(@PathVariable("companyId") int companyId){
+		try {
+			Company company = adminService.getOneCompany(companyId);
+			return new ResponseEntity<>(company , HttpStatus.OK);
+		} catch (CouponSystemException e) {
+			logger.error(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} 
 	}
+	
+	@GetMapping(value = "/companies")
+	@ResponseBody
+	public ResponseEntity<?> getAllCompanies(){
+		List<Company> companies = adminService.getAllCompanies();
+		return new ResponseEntity<>(companies , HttpStatus.OK);
+	}
+	
+	@DeleteMapping(value = "/companies/{companyId}")
+	@ResponseBody
+	public ResponseEntity<?> deleteCompany(@PathVariable("companyId") int companyId){
+		try {
+			adminService.deleteCompany(companyId);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (CouponSystemException e) {
+			logger.error(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} 
+	}
+	
+	@PutMapping(value = "/companies")
+	public ResponseEntity<?> updateCompany(@RequestBody Company company){
+		try {
+			adminService.updateCompany(company);
+			return new ResponseEntity<>(company , HttpStatus.OK);
+		} catch (CouponSystemException e) {
+			logger.error(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} 
+	}
+	
+	
 
 }

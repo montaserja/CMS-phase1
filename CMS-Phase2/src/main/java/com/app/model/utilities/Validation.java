@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.app.exceptions.companyExceptions.CompanyEmailDuplicate;
 import com.app.exceptions.companyExceptions.CompanyNameDuplicate;
+import com.app.exceptions.companyExceptions.CompanyNotExist;
 import com.app.model.Company;
 import com.app.repositories.CompanyRepository;
 
@@ -22,6 +23,14 @@ public interface Validation {
 		Optional<Company> company = comapnyRepo.findByEmail(companyEmail);
 		if(company.isPresent()) {
 			throw new CompanyEmailDuplicate("Company Email : " + companyEmail + " already exist");
+		}
+	}
+	
+	default void isCompanyExists(int companyId , CompanyRepository companyRepo) throws CompanyNotExist{
+		Optional<Company> company = companyRepo.findById(companyId);
+		
+		if(!company.isPresent()) {
+			throw new CompanyNotExist("Company with ID : " + companyId + " does not exist!!");
 		}
 	}
 }

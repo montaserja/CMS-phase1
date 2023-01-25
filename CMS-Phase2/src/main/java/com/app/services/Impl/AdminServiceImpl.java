@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.app.exceptions.companyExceptions.CompanyEmailDuplicate;
 import com.app.exceptions.companyExceptions.CompanyNameDuplicate;
+import com.app.exceptions.companyExceptions.CompanyNotExist;
 import com.app.model.Company;
 import com.app.model.Coupon;
 import com.app.model.Customer;
@@ -41,22 +42,18 @@ public class AdminServiceImpl implements AdminService,Validation {
 	
 	@Override
 	@Transactional
-	public void updateCompany(Company company) {
-		Optional<Company> companyToUpdate = companyRepo.findById(company.getId());
-		if(companyToUpdate.isPresent()) {
-			companyToUpdate = Optional.ofNullable(company);
-			companyRepo.save(companyToUpdate.get());
-		}
+	public void updateCompany(Company company) throws CompanyNotExist , CompanyEmailDuplicate , CompanyNameDuplicate{
+		this.isCompanyExists(company.getId(), companyRepo);	
+		this.isCompanyEmailDuplicate(company.getEmail(), companyRepo);
+		this.isCompanyNameDuplicate(company.getName(), companyRepo);
+		companyRepo.save(company);
 	}
 	
 	@Override
 	@Transactional
-	public void deleteCompany(Company company) {
-		Optional<Company> companyToDelete = companyRepo.findById(company.getId());
-		if(companyToDelete.isPresent()) {
-			companyRepo.delete(companyToDelete.get());
-		}
-		
+	public void deleteCompany(int companyId) throws CompanyNotExist{
+		this.isCompanyExists(companyId, companyRepo);
+		companyRepo.deleteById(companyId);
 	}
 	
 	@Override
@@ -68,7 +65,8 @@ public class AdminServiceImpl implements AdminService,Validation {
 	
 	@Override
 	@Transactional
-	public Company getOneCompany(int companyId) {
+	public Company getOneCompany(int companyId) throws CompanyNotExist {
+		this.isCompanyExists(companyId, companyRepo);
 		return companyRepo.findById(companyId).get();
 	}
 
