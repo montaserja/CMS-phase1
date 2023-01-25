@@ -5,9 +5,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.app.exceptions.companyExceptions.CompanyEmailDuplicate;
+import com.app.exceptions.companyExceptions.CompanyNameDuplicate;
 import com.app.model.Company;
 import com.app.model.Coupon;
 import com.app.model.Customer;
+import com.app.model.utilities.Validation;
 import com.app.repositories.CompanyRepository;
 import com.app.repositories.CouponRepository;
 import com.app.repositories.CustomerRepository;
@@ -15,7 +18,9 @@ import com.app.services.AdminService;
 
 import jakarta.transaction.Transactional;
 
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl implements AdminService,Validation {
+	
+	
 	
 	@Autowired
 	private CompanyRepository companyRepo;
@@ -26,9 +31,11 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private CustomerRepository customerRepo;
 
-
+	@Override
 	@Transactional
-	public void addCompany(Company company) {
+	public void addCompany(Company company)throws CompanyNameDuplicate,CompanyEmailDuplicate {
+		this.isCompanyNameDuplicate(company.getName(), companyRepo);
+		this.isCompanyEmailDuplicate(company.getEmail(), companyRepo);
 		companyRepo.save(company);
 	}
 	

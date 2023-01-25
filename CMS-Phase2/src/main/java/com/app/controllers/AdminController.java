@@ -7,14 +7,20 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.app.CmsPhase2Application;
+import com.app.exceptions.CouponSystemException;
+import com.app.exceptions.companyExceptions.CompanyEmailDuplicate;
+import com.app.exceptions.companyExceptions.CompanyNameDuplicate;
 import com.app.model.Company;
 import com.app.services.AdminService;
+import com.app.services.Impl.AdminServiceImpl;
 
 import ch.qos.logback.classic.Logger;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+	
+	private static final Logger logger = (Logger) LoggerFactory.getLogger(AdminServiceImpl.class);
 	
 	private final AdminService adminService;
 
@@ -26,12 +32,15 @@ public class AdminController {
 	@PostMapping(value = "/addCompany" )
 	@ResponseBody
 	public ResponseEntity<?> addCompany(@RequestBody Company company) {
+		try {
+			adminService.addCompany(company);
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		} catch (CouponSystemException e) {
+			logger.error(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} 
 		
-		Logger logger = (Logger) LoggerFactory.getLogger(CmsPhase2Application.class);
-		logger.info("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
-		adminService.addCompany(company);
-		System.out.println(adminService.getOneCompany(1));
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		
 		
 	}
 	

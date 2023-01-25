@@ -2,12 +2,14 @@ package com.app.services;
 
 import java.util.List;
 
+import com.app.exceptions.companyExceptions.CompanyEmailDuplicate;
+import com.app.exceptions.companyExceptions.CompanyNameDuplicate;
 import com.app.model.Company;
 import com.app.model.Coupon;
 import com.app.model.Customer;
 
 public interface AdminService {
-	public void addCompany(Company company);
+	public void addCompany(Company company)throws CompanyNameDuplicate,CompanyEmailDuplicate;
 	public void updateCompany(Company company);
 	public void deleteCompany(Company company);
 	public List<Company> getAllCompanies();
