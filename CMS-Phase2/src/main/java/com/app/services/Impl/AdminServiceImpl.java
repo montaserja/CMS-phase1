@@ -43,10 +43,16 @@ public class AdminServiceImpl implements AdminService,Validation {
 	@Override
 	@Transactional
 	public void updateCompany(Company company) throws CompanyNotExist , CompanyEmailDuplicate , CompanyNameDuplicate{
-		this.isCompanyExists(company.getId(), companyRepo);	
-		this.isCompanyEmailDuplicate(company.getEmail(), companyRepo);
-		this.isCompanyNameDuplicate(company.getName(), companyRepo);
-		companyRepo.save(company);
+		Optional<Company> companyFromDb = companyRepo.findById(company.getId());
+		if(companyFromDb.isPresent()) {
+			if(!company.getEmail().equals(companyFromDb.get().getEmail()))
+				this.isCompanyEmailDuplicate(company.getEmail(), companyRepo);
+			if(!company.getName().equals(companyFromDb.get().getName()))
+				this.isCompanyNameDuplicate(company.getName(), companyRepo);
+			companyRepo.save(company);
+		}else {
+			throw new CompanyNotExist("Company not exist!!");
+		}
 	}
 	
 	@Override
@@ -59,8 +65,7 @@ public class AdminServiceImpl implements AdminService,Validation {
 	@Override
 	@Transactional
 	public List<Company> getAllCompanies(){
-		return companyRepo.findAll();
-		
+		return companyRepo.findAll();	
 	}
 	
 	@Override

@@ -33,8 +33,8 @@ public class Coupon {
 	private Company company;
 
 	@OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-	@JoinColumn(name = "CatagoryId", referencedColumnName = "id")
-	private Category categoryID;
+	@JoinColumn(name = "Catagory", referencedColumnName = "name")
+	private Category category;
 	
 //	@ManyToOne
 //	private CustomerVsCoupon CVC;

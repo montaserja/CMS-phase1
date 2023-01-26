@@ -16,8 +16,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.app.model.Company;
 import com.app.services.AdminService;
+import com.app.services.CategoryService;
 import com.app.services.CompanyService;
 import com.app.services.Impl.AdminServiceImpl;
+import com.app.services.Impl.CategoryServiceImpl;
 import com.app.services.Impl.CompanyServiceImpl;
 
 import ch.qos.logback.classic.Logger;
@@ -41,6 +43,11 @@ public class CmsPhase2Application {
     public AdminService adminService(){
         return new AdminServiceImpl();
     }
+   
+   @Bean("categoryService")
+   public CategoryService categoryService(){
+       return new CategoryServiceImpl();
+   }
 	
 	
 	

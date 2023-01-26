@@ -7,8 +7,11 @@ import org.springframework.stereotype.Component;
 import com.app.exceptions.companyExceptions.CompanyEmailDuplicate;
 import com.app.exceptions.companyExceptions.CompanyNameDuplicate;
 import com.app.exceptions.companyExceptions.CompanyNotExist;
+import com.app.exceptions.couponsExceptions.CouponNotExist;
 import com.app.model.Company;
+import com.app.model.Coupon;
 import com.app.repositories.CompanyRepository;
+import com.app.repositories.CouponRepository;
 
 @Component
 public interface Validation {
@@ -31,6 +34,13 @@ public interface Validation {
 		
 		if(!company.isPresent()) {
 			throw new CompanyNotExist("Company with ID : " + companyId + " does not exist!!");
+		}
+	}
+	
+	default void isCouponExists(int couponId , CouponRepository couponRepo) throws CouponNotExist{
+		Optional<Coupon> coupon = couponRepo.findById(couponId);
+		if(!coupon.isPresent()) {
+			throw new CouponNotExist("Coupon id not exist!!");
 		}
 	}
 }
